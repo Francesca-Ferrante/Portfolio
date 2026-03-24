@@ -529,19 +529,19 @@ footer {
         display: flex;
     }
 
-    /* Pannello laterale slide-in */
+    /* Pannello laterale slide-in più stretto a mo' di banner */
     .nav-links {
         position: fixed;
         top: 0;
         right: -100%;
-        width: 85%;
+        width: 260px; /* Banner laterale più sottile */
         height: 100vh;
         background: rgba(7, 9, 12, 0.99);
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-        gap: 2.5rem;
-        padding: 3rem 2.5rem;
+        gap: 1rem;
+        padding: 3rem 1.5rem;
         transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         z-index: 1000;
         border-left: 1px solid rgba(184, 134, 11, 0.15);
@@ -564,8 +564,8 @@ footer {
 
     /* Icone nel pannello: grandi e nitide, solo icone senza testo */
     .nav-icon {
-        width: 140px;
-        height: 140px;
+        width: 165px;
+        height: 165px;
         margin-right: 0;
         filter: brightness(2) contrast(1.1);
     }
@@ -578,11 +578,12 @@ footer {
     /* Icone centrate nel pannello */
     .nav-links a {
         justify-content: center;
+        padding: 0; /* Riduce ulteriormente lo spazio verticale */
     }
 
     .nav-links {
         align-items: center;
-        gap: 1.5rem; /* un po' meno spazio per icone così grandi */
+        gap: 0.5rem; /* Icone molto più vicine */
     }
 
     /* Reset padding massiccio pagine secondarie su mobile */
@@ -591,8 +592,8 @@ footer {
     }
 
     body:not(.home-page) .nav-icon {
-        width: 140px;
-        height: 140px;
+        width: 165px;
+        height: 165px;
     }
 
     body:not(.home-page) nav {
