@@ -424,10 +424,10 @@ footer {
 }
 
 .icon-item img {
-    width: clamp(150px, 15vw, 190px);
-    height: clamp(150px, 15vw, 190px);
+    width: clamp(120px, 15vw, 190px);
+    height: clamp(120px, 15vw, 190px);
     object-fit: contain;
-    filter: grayscale(1) contrast(1.1) brightness(0.9);
+    filter: brightness(2) contrast(1.1);
     transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
@@ -562,20 +562,26 @@ footer {
         padding: 0.5rem 0;
     }
 
-    /* Icone nel pannello: grandi e nitide */
+    /* Icone nel pannello: grandi e nitide, solo icone senza testo */
     .nav-icon {
-        width: 70px;
-        height: 70px;
+        width: 100px;
+        height: 100px;
         margin-right: 0;
         filter: brightness(2) contrast(1.1);
     }
 
-    /* Testo sempre visibile nel pannello mobile */
+    /* Testo nascosto nel pannello mobile: solo icone */
     .nav-text {
-        display: block !important;
-        font-size: 1rem;
-        letter-spacing: 3px;
-        font-weight: 700;
+        display: none !important;
+    }
+
+    /* Icone centrate nel pannello */
+    .nav-links a {
+        justify-content: center;
+    }
+
+    .nav-links {
+        align-items: center;
     }
 
     /* Reset padding massiccio pagine secondarie su mobile */
@@ -637,8 +643,8 @@ footer {
     }
 
     .icon-item img {
-        width: 80px;
-        height: 80px;
+        width: 130px;
+        height: 130px;
     }
 
     /* About: colonna singola */
@@ -682,8 +688,8 @@ footer {
 /* Extra small: smartphone stretto */
 @media (max-width: 400px) {
     .icon-item img {
-        width: 60px;
-        height: 60px;
+        width: 90px;
+        height: 90px;
     }
 
     .art-grid {
