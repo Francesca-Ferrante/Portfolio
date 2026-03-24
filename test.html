@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Francesca Ferrante | Portfolio</title>
+    <meta name="description" content="Atelier artistico di Francesca Ferrante. Opere ad olio e acquerelli.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dark-theme">
+    <div class="noise-overlay"></div>
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">FF <span class="dot">.</span></a>
+            <ul class="nav-links" id="nav-list">
+                <li><a href="#about" title="L'Artista"><img src="assets/icons/SU%20DI%20ME.png" alt="" class="nav-icon"> <span class="nav-text">L'Artista</span></a></li>
+                <li><a href="#olio" title="Olio"><img src="assets/icons/OLIO.png" alt="" class="nav-icon"> <span class="nav-text">Olio</span></a></li>
+                <li><a href="#acquerelli" title="Acquerelli"><img src="assets/icons/ACQUERELLO.png" alt="" class="nav-icon"> <span class="nav-text">Acquerelli</span></a></li>
+                <li><a href="https://www.instagram.com/fra_unacosaelaltra" target="_blank" class="ig-link">
+                    <img src="assets/icons/IG.png" alt="" class="nav-icon"> <span class="nav-text">Instagram</span></a></li>
+            </ul>
+            <div class="menu-toggle" id="mobile-menu">
+                <span></span><span></span><span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+
+        <section id="hero">
+            <div class="hero-content">
+                <h1 class="main-title">Fra una cosa <br>e l'altra</h1>
+                <p class="tagline">L'arte nel silenzio del "Fra_tempo".</p>
+                <div class="hero-scroll-line"></div>
+            </div>
+                <div class="orb orb-1"></div>
+                <div class="orb orb-2"></div>
+
+            
+            <!-- Quick Nav Icons moved here -->
+            <div class="hero-icons icon-menu">
+                <a href="#about" class="icon-item">
+                    <img src="assets/icons/SU%20DI%20ME.png" alt="Su di me">
+                </a>
+                <a href="#olio" class="icon-item">
+                    <img src="assets/icons/OLIO.png" alt="Olio">
+                </a>
+                <a href="#acquerelli" class="icon-item">
+                    <img src="assets/icons/ACQUERELLO.png" alt="Acquerelli">
+                </a>
+                <a href="https://www.instagram.com/fra_unacosaelaltra" target="_blank" class="icon-item">
+                    <img src="assets/icons/IG.png" alt="Instagram">
+                </a>
+            </div>
+        </section>
+
+
+
+        <section id="about">
+            <div class="container about-row">
+                <div class="about-image">
+                    <img src="assets/img/artista.jpg" alt="Francesca Ferrante">
+                    <div class="frame-deco"></div>
+                </div>
+                <div class="about-text">
+                    <span class="label">Presentazione</span>
+                    <h3>Mi presento</h3>
+                    <p>Sono Francesca Ferrante. Tra una cosa e l'altra, tra pennelli e colori, la mia ricerca artistica
+                        si muove tra la densità dell'olio e la fluidità dell'acquerello.</p>
+                    <p>Ogni opera è un viaggio nel movimento creativo del mio studio, un tentativo di fermare il tempo
+                        proprio nel "fra_tempo" tra un'azione e l'altra.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="olio" class="gallery-section">
+            <div class="section-header">
+                <span class="label">Galleria</span>
+                <h3>Olio</h3>
+            </div>
+            <div class="art-grid">
+                <div class="art-card" onclick="openLightbox(this)"><img loading="lazy" src="assets/img/IMG_4245.jpeg" alt="Olio"></div>
+                <div class="art-card" onclick="openLightbox(this)"><img
+                        src="assets/img/2026-03-23%2012-22%20pagina%202.jpeg?v=2" alt="Olio"></div>
+                <div class="art-card" onclick="openLightbox(this)"><img
+                        src="assets/img/2026-03-23%2012-22%20pagina%203.jpeg" alt="Olio"></div>
+                <div class="art-card" onclick="openLightbox(this)"><img loading="lazy" src="assets/img/IMG_4250.jpeg" alt="Olio"></div>
+                <div class="art-card" onclick="openLightbox(this)"><img loading="lazy" src="assets/img/IMG_6388.jpeg" alt="Olio"></div>
+                <div class="art-card" onclick="openLightbox(this)"><img loading="lazy" src="assets/img/IMG_6393.jpeg" alt="Olio"></div>
+                <div class="art-card" onclick="openLightbox(this)"><img loading="lazy" src="assets/img/IMG_9082.jpeg" alt="Olio"></div>
+            </div>
+        </section>
+
+        <section id="acquerelli" class="gallery-section">
+            <div class="section-header">
+                <span class="label">Galleria</span>
+                <h3>Acquerelli</h3>
+            </div>
+            <div class="art-grid">
+                <div class="art-card" onclick="openLightbox(this)"><img
+                        src="assets/img/2026-03-23%2012-22%20pagina%2010.jpeg" alt="Acquerello"></div>
+                <div class="art-card" onclick="openLightbox(this)"><img
+                        src="assets/img/2026-03-23%2012-22%20pagina%2011.jpeg" alt="Acquerello"></div>
+                <div class="art-card" onclick="openLightbox(this)"><img
+                        src="assets/img/2026-03-23%2012-22%20pagina%2012.jpeg" alt="Acquerello"></div>
+                <div class="art-card" onclick="openLightbox(this)"><img
+                        src="assets/img/2026-03-23%2012-22%20pagina%206.jpeg" alt="Acquerello"></div>
+                <div class="art-card" onclick="openLightbox(this)"><img
+                        src="assets/img/2026-03-23%2012-22%20pagina%207.jpeg" alt="Acquerello"></div>
+                <div class="art-card" onclick="openLightbox(this)"><img
+                        src="assets/img/2026-03-23%2012-22%20pagina%208.jpeg" alt="Acquerello"></div>
+                <div class="art-card" onclick="openLightbox(this)"><img
+                        src="assets/img/2026-03-23%2012-22%20pagina%209.jpeg" alt="Acquerello"></div>
+                <div class="art-card" onclick="openLightbox(this)"><img loading="lazy" src="assets/img/IMG_4934.jpeg" alt="Acquerello">
+                </div>
+                <div class="art-card" onclick="openLightbox(this)"><img loading="lazy" src="assets/img/IMG_4935.jpeg" alt="Acquerello">
+                </div>
+                <div class="art-card" onclick="openLightbox(this)"><img loading="lazy" src="assets/img/IMG_4936.jpeg" alt="Acquerello">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close">&times;</span>
+        <img class="lightbox-content" id="img01">
+        <div id="caption"></div>
+    </div>
+
+    <footer>
+        <p>2026 Francesca Ferrante. Creato nel Fra_tempo.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
