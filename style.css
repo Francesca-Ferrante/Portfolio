@@ -453,65 +453,84 @@ footer {
 .tube-cap {
     width: 25px;
     height: 18px;
-    background: repeating-linear-gradient(90deg, #666, #666 3px, #444 3px, #444 6px);
-    border-radius: 4px 4px 2px 2px;
+    background: repeating-linear-gradient(90deg, #999, #999 3px, #777 3px, #777 6px);
+    border-radius: 4px 4px 0 0;
     z-index: 4;
-    border: 1px solid #333;
-    box-shadow: inset 0 2px 4px rgba(255,255,255,0.2);
+    border: 1px solid #555;
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.4);
     position: relative;
+    box-sizing: border-box;
 }
 
 .tube-nozzle {
-    width: 22px;
+    width: 20px;
     height: 8px;
-    background: linear-gradient(90deg, #aaa, #ddd, #aaa);
-    clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
+    background: linear-gradient(90deg, #ccc, #eee, #ccc);
+    clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
     z-index: 2;
 }
 
 .tube-body {
-    width: 65px;
-    height: 140px;
-    background: linear-gradient(to bottom, 
-        var(--tube-color) 0%, 
-        var(--tube-color) 20%, 
-        #fdfdfd 20%, 
-        #fdfdfd 80%, 
-        #c4c4c4 80%, 
-        #999999 100%);
-    border-radius: 35px 35px 3px 3px; /* Rounded Van Gogh shoulders! */
-    z-index: 3;
+    width: 85px; /* bottom wide width */
+    height: 160px;
+    background: #fff;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%); /* Perfect trapezoid flare! */
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
-    box-shadow: inset -3px 0 10px rgba(0,0,0,0.3), inset 3px 0 10px rgba(255,255,255,0.3), 0 5px 15px rgba(0,0,0,0.5);
+    flex-direction: column;
+    z-index: 3;
     position: relative;
 }
 
-.tube-label {
+.band-top-black {
+    height: 12%;
+    background: #111;
     width: 100%;
+}
+.band-white-line {
+    height: 3%;
+    background: #ddd;
+    width: 100%;
+}
+.band-color {
+    height: 30%;
+    background: var(--tube-color);
+    width: 100%;
+}
+.band-icon {
+    height: 35%;
+    background: #fdfdfd;
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    position: relative;
+    border-radius: 50% 50% 0 0 / 15% 15% 0 0;
+    margin-top: -8%; /* overlass Color band to mimic wavy label */
 }
-
-.tube-body img {
-    width: 95% !important; /* massimizza in larghezza */
-    height: auto !important;
-    filter: brightness(0) !important;
-    opacity: 0.9;
-    margin-top: 15px; /* Spinge l'icona verso la pancia bianca */
+.band-icon img {
+    height: 90% !important; /* huge height, width auto */
+    width: auto !important;
+    filter: brightness(0) !important; /* make it black */
+    display: block;
 }
-
-.tube-tail {
-    width: 65px;
-    height: 12px;
-    background: #888;
-    background-image: repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 6px);
-    border-radius: 0 0 2px 2px;
-    box-shadow: inset 0 -2px 4px rgba(0,0,0,0.4);
-    z-index: 2;
+.band-black-text {
+    height: 8%;
+    background: #111;
+    color: #fff;
+    font-size: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    font-family: 'Inter', sans-serif;
+}
+.band-metal {
+    flex-grow: 1; /* fills remaining space to bottom */
+    width: 100%;
+    background-image: repeating-linear-gradient(to right, transparent, transparent 3px, rgba(0,0,0,0.1) 3px, rgba(0,0,0,0.1) 6px),
+                      linear-gradient(90deg, #aaa, #eee, #999, #ddd, #888);
 }
 
 /* SQUISH ANIMATION */
@@ -524,9 +543,9 @@ footer {
 }
 
 @keyframes tubeSquish {
-    0% { height: 140px; transform: scaleX(1); }
-    30% { height: 130px; transform: scaleX(1.1); } /* slight bulge */
-    100% { height: 40px; transform: scaleX(1.1); opacity: 0; }
+    0% { height: 160px; transform: scaleX(1); }
+    30% { height: 150px; transform: scaleX(1.1); } 
+    100% { height: 50px; transform: scaleX(1.1); opacity: 0; }
 }
 
 @keyframes capPop {
