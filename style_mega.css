@@ -679,6 +679,24 @@ footer {
         font-size: 1.6rem;
     }
 
+    /* Solleva titolo e sottotitolo Home per non coprire i tubetti */
+    .hero-content {
+        padding-top: 2vh;
+        margin-bottom: -2rem;
+    }
+
+    .main-title {
+        font-size: 3.8rem; /* Titolo più grande e impattante */
+        line-height: 0.85;
+        margin-bottom: 0.8rem;
+        letter-spacing: -3px;
+    }
+
+    .tagline {
+        font-size: 0.95rem;
+        opacity: 0.6;
+    }
+
     /* Reset logo grande su mobile (pagine secondarie) */
     body:not(.home-page) .logo {
         font-size: 1.6rem;
