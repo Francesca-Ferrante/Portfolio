@@ -474,12 +474,12 @@ footer {
     height: 140px;
     background: linear-gradient(to bottom, 
         var(--tube-color) 0%, 
-        var(--tube-color) 25%, 
-        #fdfdfd 25%, 
-        #fdfdfd 75%, 
-        #c4c4c4 75%, 
+        var(--tube-color) 20%, 
+        #fdfdfd 20%, 
+        #fdfdfd 80%, 
+        #c4c4c4 80%, 
         #999999 100%);
-    border-radius: 4px 4px 2px 2px;
+    border-radius: 35px 35px 3px 3px; /* Rounded Van Gogh shoulders! */
     z-index: 3;
     display: flex;
     justify-content: center;
@@ -497,10 +497,11 @@ footer {
 }
 
 .tube-body img {
-    width: 80% !important; /* ensure icon scales nicely inside narrow body */
+    width: 95% !important; /* massimizza in larghezza */
     height: auto !important;
     filter: brightness(0) !important;
     opacity: 0.9;
+    margin-top: 15px; /* Spinge l'icona verso la pancia bianca */
 }
 
 .tube-tail {
@@ -565,6 +566,7 @@ footer {
         overflow-x: visible;
         width: 100%;
         justify-content: space-around;
+        align-items: flex-end; /* assicura che appoggino tutti sulla stessa base */
         padding: 0;
     }
 
