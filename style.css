@@ -495,35 +495,40 @@ footer {
     100% { transform: scale(4.5) translateY(-200px); opacity: 0; border-radius: 40% 60% 70% 30%; }
 }
 
-/* Mobile QNav */
 @media (max-width: 768px) {
     .tubi-hero {
-        display: grid; /* griglia a 4 colonne per garantire che siano tutti e 4 */
-        grid-template-columns: repeat(4, 1fr);
-        gap: 0;
+        position: absolute;
+        bottom: 0;
+        left: 0;
         width: 100vw;
-        margin-left: -5%;
-        padding: 0;
-        align-items: flex-end;
-        overflow: visible; /* per far debordare i giganti senza sparire */
+        height: 60vh; /* Zona dedicata ai tubetti */
+        display: block; /* Disabilitiamo Grid/Flex per controllo totale */
+        overflow: visible;
+        margin: 0;
         z-index: 10;
+        pointer-events: none; /* Lasciamo passare i click se serve, ma i figli li riprendono */
     }
 
     .tube-photo-item {
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
+        position: absolute;
+        bottom: 0;
+        width: 38vw; /* Monumentali e volutamente sovrapposti */
         height: auto;
         padding: 0;
-        overflow: visible;
-        z-index: 5;
+        pointer-events: auto; /* Riabilita il click sul tubetto */
     }
 
+    /* Posizionamento manuale millimetrico per garantire visibilità di tutti e 4 */
+    .tube-photo-item:nth-child(1) { left: -7vw;  z-index: 11; }
+    .tube-photo-item:nth-child(2) { left: 19vw;  z-index: 12; }
+    .tube-photo-item:nth-child(3) { left: 45vw;  z-index: 13; }
+    .tube-photo-item:nth-child(4) { left: 71vw;  z-index: 14; }
+
     .tube-photo {
-        width: 125%; /* Monumentali ma non troppo da uccidere Safari */
+        width: 100%;
         max-width: none;
         height: auto;
-        max-height: 80svh; 
+        max-height: 80vh; 
         transform-origin: bottom center;
         filter: drop-shadow(0 10px 20px rgba(0,0,0,0.7));
     }
