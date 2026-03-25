@@ -857,7 +857,7 @@
 
                                                     /* Reset padding massiccio pagine secondarie su mobile */
                                                     body:not(.home-page) main section:first-of-type {
-                                                        padding-top: 6rem;
+                                                        padding-top: 2rem;
                                                     }
 
                                                     body:not(.home-page) .nav-icon {
@@ -872,9 +872,9 @@
 
                                                     /* Sezioni generali */
                                                     section {
-                                                        padding: 3rem 5%;
+                                                        padding: 1.5rem 5%;
                                                         min-height: 0;
-                                                        scroll-margin-top: 70px;
+                                                        scroll-margin-top: 15px; /* Molto meno spazio in alto per i link */
                                                     }
 
                                                     /* Gallery sections non forzano 100vh */
