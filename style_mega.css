@@ -661,7 +661,12 @@ footer {
         cursor: auto;
     }
 
-    /* Header compatto */
+    /* Rimuovi l'header (Logo FF e Hamburger) completamente dalla Home Page su mobile */
+    .home-page header {
+        display: none !important;
+    }
+
+    /* Header compatto (per eventuali altre pagine future) */
     header {
         padding: 1rem 5%;
         background: rgba(7, 9, 12, 0.95);
