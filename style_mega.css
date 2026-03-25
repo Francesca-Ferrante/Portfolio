@@ -497,41 +497,84 @@ footer {
 
 @media (max-width: 768px) {
     .tubi-hero {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap !important; /* Forza l'allineamento a singola riga senza andare a capo */
-        justify-content: center;
-        align-items: flex-end;
         position: absolute;
         bottom: 0px;
         left: 0;
         width: 100vw;
-        height: 55vh;
+        height: 60vh;
         z-index: 10;
         overflow: visible;
         margin: 0;
         padding: 0;
+        display: block; /* Nessuna griglia o flex, libertà totale nello spazio */
     }
 
     .tube-photo-item {
-        flex: 0 0 25%; /* Ognuno prende esattamente il 25%, matematicamente impossibile che vadano a capo */
-        width: 25%;
-        max-width: 25%;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        position: relative;
+        position: absolute;
+        display: block;
+        height: auto;
         padding: 0;
         overflow: visible;
+        pointer-events: auto;
+        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), z-index 0s;
+    }
+
+    /* EFFETTO TAVOLO SPARSO: Posizioni assolute, rotazioni e profondità (z-index) */
+    
+    /* 1. Su di me (giallo): inclinato a sinistra, in primo piano */
+    .tube-photo-item:nth-child(1) {
+        bottom: -2vh; 
+        left: -8vw;
+        width: 48vw; 
+        transform: rotate(-18deg);
+        z-index: 14;
+    }
+    
+    /* 2. Olio (rosso): dietro al giallo, inclinato a destra */
+    .tube-photo-item:nth-child(2) {
+        bottom: 10vh;
+        left: 15vw;
+        width: 44vw;
+        transform: rotate(22deg);
+        z-index: 12;
+    }
+
+    /* 3. Acquerello (blu): dietro a IG, leggermente orizzontale */
+    .tube-photo-item:nth-child(3) {
+        bottom: 8vh;
+        right: 18vw;
+        width: 44vw;
+        transform: rotate(-12deg);
+        z-index: 11;
+    }
+
+    /* 4. IG (bianco): in primissimo piano a destra, imponente */
+    .tube-photo-item:nth-child(4) {
+        bottom: -4vh;
+        right: -10vw;
+        width: 52vw; 
+        transform: rotate(15deg);
+        z-index: 15;
     }
 
     .tube-photo {
-        width: 145%; /* Esce dal suo limite del 25% per sovrapporsi agli altri in modo artistico */
+        width: 100%;
         max-width: none;
         height: auto;
-        margin-left: -22.5%; /* Centra l'immagine più larga del suo spazio limitato */
-        transform-origin: bottom center;
-        filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
+        margin-left: 0;
+        transform-origin: center center;
+        filter: drop-shadow(10px 20px 25px rgba(0,0,0,0.85)); /* Ombra drammatica per staccarli dallo sfondo */
+    }
+
+    /* Hover effect speciale per il tavolo */
+    .tube-photo-item:hover {
+        transform: translateY(-20px) rotate(0deg) scale(1.1) !important;
+        z-index: 20 !important;
+    }
+
+    /* Override squish per non rompere la rotazione */
+    .tube-photo-item.squished {
+        transform: scale(1.1, 0.8) !important; 
     }
 
     #hero {
@@ -539,7 +582,7 @@ footer {
         display: flex;
         flex-direction: column;
         justify-content: flex-start; /* title stays up */
-        padding-top: 100px; 
+        padding-top: 80px; 
         padding-bottom: 0;
         min-height: 100svh;
         overflow: hidden; /* prevents horizontal scrolling issues from massive tubes */
