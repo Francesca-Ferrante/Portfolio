@@ -445,6 +445,18 @@ footer {
     transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
+.tube-horizontal-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.tube-label {
+    display: none; /* Nascoste su desktop */
+}
+
 .tube-photo-item:hover {
     transform: translateY(-8px);
 }
@@ -497,74 +509,96 @@ footer {
 
 @media (max-width: 768px) {
     .tubi-hero {
-        position: absolute;
-        bottom: 0px;
-        left: 0;
+        position: relative; /* Sposta il flusso fuori dal bottom fisso per occupare spazio verticale */
         width: 100vw;
         display: flex;
-        flex-direction: row;
+        flex-direction: column; /* Impilati uno sotto l'altro */
         justify-content: center;
-        align-items: flex-end;
+        align-items: center;
+        gap: 4rem; /* Spazio elegante tra ogni tubetto orizzontale */
         z-index: 10;
         margin: 0;
-        padding: 0;
+        padding: 5vh 0 10vh 0; /* Margini per respirare ai bordi */
     }
 
     .tube-photo-item {
         position: relative;
-        flex: 0 0 25vw; /* Esattamente il 25% dello schermo per ogni tubetto */
-        width: 25vw;
-        max-width: 25vw;
+        flex: none; /* Cancelliamo vecchie regie grid/25vw */
+        width: 100%;
+        max-width: none;
         display: flex;
+        flex-direction: column;
         justify-content: center;
-        align-items: flex-end;
+        align-items: center;
         height: auto;
         padding: 0;
         pointer-events: auto;
         transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
-    /* Reset manual positions/rotations applied for scattered look */
-    .tube-photo-item:nth-child(1),
-    .tube-photo-item:nth-child(2),
-    .tube-photo-item:nth-child(3),
-    .tube-photo-item:nth-child(4) {
-        bottom: 0;
-        left: auto;
-        right: auto;
-        transform: none;
-        z-index: 5;
+    /* La scatola di contenimento calcola l'ingombro dell'immagine ruotata.
+       Poiché la foto è alta ~2.7 volte la sua larghezza, ruotandola avremo bisogno
+       di una scatola larga (ex altezza) e bassa (ex larghezza) */
+    .tube-horizontal-wrapper {
+        position: relative;
+        width: 90vw; 
+        height: 33vw; /* Calcolato per contenere un tubetto spesso 33% della propria lunghezza */
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .tube-photo {
-        width: 100% !important; /* Occupa tutto il suo 25% disponibile, non un pixel in più */
+        position: absolute;
+        height: 90vw !important; /* L'ex altezza diventa la larghezza occupata (90% dello schermo) */
+        width: auto !important;
         max-width: none !important;
-        height: auto !important;
-        max-height: 70vh; /* Limita l'altezza se lo schermo è bassissimo */
-        margin-left: 0;
-        transform-origin: bottom center;
-        filter: drop-shadow(0 10px 20px rgba(0,0,0,0.6));
+        max-height: none !important;
+        margin: 0;
+        transform-origin: center center;
+        transform: rotate(-90deg); /* Sdraiati su un lato (tappo a sinistra) */
+        filter: drop-shadow(15px -10px 15px rgba(0,0,0,0.7)); /* Ombra adatta alla rotazione */
+    }
+
+    .tube-label {
+        display: block;
+        font-family: 'Syne', sans-serif;
+        color: var(--accent);
+        font-size: 1.4rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        margin-top: 2rem; /* Distanza tra l'immagine sdraiata e il testo */
+        text-align: center;
+        opacity: 0.9;
+        text-shadow: 0 5px 10px rgba(0,0,0,0.8);
+    }
+
+    /* Reset manual positions that might linger */
+    .tube-photo-item:nth-child(n) {
+        bottom: 0; left: auto; right: auto; transform: none; z-index: 5;
     }
 
     .tube-photo-item:hover {
-        transform: translateY(-10px) scale(1.05) !important;
+        transform: translateY(-8px) scale(1.03) !important;
         z-index: 20 !important;
     }
 
-    /* Override squish per non rompere il flex */
-    .tube-photo-item.squished {
-        transform: scale(1.05, 0.8) !important; 
+    .tube-photo-item.squished .tube-photo {
+        /* Override squish animation che manterrebbe asse sbagliato */
+        transform: rotate(-90deg) scale(0.9, 1.1) !important; 
     }
 
     #hero {
         position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start; /* title stays up */
+        justify-content: flex-start; 
         padding-top: 80px; 
         padding-bottom: 0;
+        height: auto;
         min-height: 100svh;
-        overflow: hidden; /* prevents horizontal scrolling issues */
+        overflow-x: hidden; /* prevents horizontal scrolling issues */
     }
 }
 
