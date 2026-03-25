@@ -451,8 +451,8 @@ footer {
 }
 
 .tube-photo {
-    width: 24vw; /* massive mobile width */
-    max-width: 130px; /* huge maximum for desktop */
+    width: 24vw; 
+    max-width: 150px; /* Alato per desktop */
     height: auto;
     object-fit: contain;
     z-index: 3;
@@ -499,11 +499,12 @@ footer {
 /* Mobile QNav */
 @media (max-width: 768px) {
     .icon-menu {
-        gap: 0.5rem;
-        flex-wrap: nowrap; /* tutti e 4 in una sola riga */
+        gap: 0; /* No gaps to maximize space */
+        flex-wrap: nowrap;
         overflow-x: visible;
-        width: 100%;
-        justify-content: space-around;
+        width: 100vw;
+        margin-left: -5%; /* offset typical page padding */
+        justify-content: center;
         align-items: flex-end;
         padding: 0;
     }
@@ -511,13 +512,15 @@ footer {
     .tube-photo-item {
         height: auto;
         padding: 0;
+        flex: 1; /* evenly fill 100vw */
     }
 
     .tube-photo {
-        width: 24vw; /* 4 affiancati che riempiono la larghezza */
+        width: 100%; /* fill the 1/4th flex container */
         max-width: none;
         height: auto;
-        max-height: 55vh; /* alto quanto la metà inferiore dello schermo */
+        max-height: 65vh; /* HUGE vertical scale */
+        filter: drop-shadow(0 10px 20px rgba(0,0,0,0.7));
     }
 
     .hero-icons {
