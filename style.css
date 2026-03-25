@@ -431,126 +431,45 @@ footer {
     transition: 0.4s;
 }
 
-/* PAINT TUBE DESIGN */
-.tube-item {
+/* PHOTO REALISTIC PAINT TUBE DESIGN */
+.tube-photo-item {
     position: relative;
     display: flex;
-    flex-direction: column; /* Splat -> Cap -> Nozzle -> Body -> Tail */
+    flex-direction: column;
     align-items: center;
     justify-content: flex-end; /* anchors tail to the bottom */
     cursor: pointer;
     text-decoration: none;
     transform-origin: bottom center;
     padding: 10px 5px;
-    height: 200px; /* fixed height maintains space while body shrinks */
+    height: 180px; /* fixed height maintains space while body shrinks */
     transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.tube-item:hover {
+.tube-photo-item:hover {
     transform: translateY(-8px);
 }
 
-.tube-cap {
-    width: 25px;
-    height: 18px;
-    background: repeating-linear-gradient(90deg, #999, #999 3px, #777 3px, #777 6px);
-    border-radius: 4px 4px 0 0;
-    z-index: 4;
-    border: 1px solid #555;
-    box-shadow: inset 0 2px 4px rgba(255,255,255,0.4);
-    position: relative;
-    box-sizing: border-box;
-}
-
-.tube-nozzle {
-    width: 20px;
-    height: 8px;
-    background: linear-gradient(90deg, #ccc, #eee, #ccc);
-    clip-path: polygon(5% 0%, 95% 0%, 100% 100%, 0% 100%);
-    z-index: 2;
-}
-
-.tube-body {
-    width: 85px; /* bottom wide width */
-    height: 160px;
-    background: #fff;
-    clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%); /* Perfect trapezoid flare! */
-    display: flex;
-    flex-direction: column;
+.tube-photo {
+    width: 75px; /* Full visual width */
+    height: auto;
+    max-height: 160px;
+    object-fit: contain;
     z-index: 3;
-    position: relative;
+    filter: drop-shadow(0 8px 15px rgba(0,0,0,0.6));
+    transform-origin: bottom center; /* anchors to metal crimp */
+    pointer-events: none; /* Prevents dragging image */
 }
 
-.band-top-black {
-    height: 12%;
-    background: #111;
-    width: 100%;
-}
-.band-white-line {
-    height: 3%;
-    background: #ddd;
-    width: 100%;
-}
-.band-color {
-    height: 30%;
-    background: var(--tube-color);
-    width: 100%;
-}
-.band-icon {
-    height: 35%;
-    background: #fdfdfd;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    position: relative;
-    border-radius: 50% 50% 0 0 / 15% 15% 0 0;
-    margin-top: -8%; /* overlass Color band to mimic wavy label */
-}
-.band-icon img {
-    height: 90% !important; /* huge height, width auto */
-    width: auto !important;
-    filter: brightness(0) !important; /* make it black */
-    display: block;
-}
-.band-black-text {
-    height: 8%;
-    background: #111;
-    color: #fff;
-    font-size: 7px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-transform: uppercase;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    font-family: 'Inter', sans-serif;
-}
-.band-metal {
-    flex-grow: 1; /* fills remaining space to bottom */
-    width: 100%;
-    background-image: repeating-linear-gradient(to right, transparent, transparent 3px, rgba(0,0,0,0.1) 3px, rgba(0,0,0,0.1) 6px),
-                      linear-gradient(90deg, #aaa, #eee, #999, #ddd, #888);
+/* SQUISH ANIMATION FOR PHOTOS */
+.tube-photo-item.squished .tube-photo {
+    animation: photoSquish 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-/* SQUISH ANIMATION */
-.tube-item.squished .tube-body {
-    animation: tubeSquish 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-
-.tube-item.squished .tube-cap {
-    animation: capPop 0.6s ease forwards;
-}
-
-@keyframes tubeSquish {
-    0% { height: 160px; transform: scaleX(1); }
-    30% { height: 150px; transform: scaleX(1.1); } 
-    100% { height: 50px; transform: scaleX(1.1); opacity: 0; }
-}
-
-@keyframes capPop {
-    0% { transform: translateY(0); }
-    100% { transform: translateY(-40px) scale(1.3) rotate(25deg); opacity: 0; }
+@keyframes photoSquish {
+    0% { transform: scale(1, 1); }
+    30% { transform: scale(1.1, 0.85); } /* slight bulge */
+    100% { transform: scale(1.2, 0.4); opacity: 0; }
 }
 
 /* PAINT SPLAT (shooting up) */
@@ -567,7 +486,7 @@ footer {
     filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
 }
 
-.tube-item.squished .paint-splat {
+.tube-photo-item.squished .paint-splat {
     animation: splatShoot 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
 }
 

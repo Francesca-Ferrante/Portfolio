@@ -88,35 +88,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Paint Tube Click Animation
-    const tubeItems = document.querySelectorAll('.tube-item');
-    tubeItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            
-            // If already squishing, ignore click
-            if(this.classList.contains('squished')) return;
-            
+    // 5. Paint Tube Click Animation (New Photo-real implementation)
+    document.querySelectorAll('.tube-photo-item').forEach(tube => {
+        tube.addEventListener('click', function(e) {
+            // Prevent default click / scroll behavior
             e.preventDefault();
-            this.classList.add('squished');
-            
-            const target = this.getAttribute('data-target');
+
+            // If already squished, don't trigger again
+            if(this.classList.contains('squished')) return;
+
+            const targetAttr = this.getAttribute('data-target');
             const href = this.getAttribute('href');
-            const isBlank = this.getAttribute('target') === '_blank';
-            
-            // Wait for animation to squirt paint
+            const isExternal = this.getAttribute('target') === '_blank';
+
+            // Trigger animation
+            this.classList.add('squished');
+
+            // Wait for paint squirt to finish before navigation
             setTimeout(() => {
-                if (isBlank) {
+                if (isExternal && href) {
                     window.open(href, '_blank');
-                    this.classList.remove('squished'); // Reset so it's normal if they switch back
-                } else if (target && target.startsWith('#')) {
-                    const sec = document.querySelector(target);
-                    if (sec) sec.scrollIntoView({ behavior: 'smooth' });
-                    // Remove squish after scroll
+                    this.classList.remove('squished');
+                } else if (targetAttr && targetAttr.startsWith('#')) {
+                    const targetEl = document.querySelector(targetAttr);
+                    if (targetEl) {
+                        targetEl.scrollIntoView({ behavior: 'smooth' });
+                    }
                     setTimeout(() => this.classList.remove('squished'), 600);
-                } else {
+                } else if (href) {
                     window.location.href = href;
                 }
-            }, 750); // Delay matches CSS animation time
+            }, 750); // Matches CSS animation time
         });
     });
 
