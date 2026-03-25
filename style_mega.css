@@ -1,878 +1,942 @@
-:root {
-    --bg-dark: #07090C;
-    --text-light: #F2F2F2;
-    --accent: #B8860B;
-    --accent-glow: rgba(184, 134, 11, 0.2);
-    --transition-norm: 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background: var(--bg-dark);
-    color: var(--text-light);
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
-    overflow-x: hidden;
-    cursor: none;
-    -webkit-font-smoothing: antialiased;
-}
-
-/* Texture Grain Overlay */
-.noise-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.04;
-    pointer-events: none;
-    z-index: 10000;
-}
-
-/* Custom Cursor */
-.cursor-dot,
-.cursor-outline {
-    position: fixed;
-    pointer-events: none;
-    z-index: 10001;
-}
-
-.cursor-dot {
-    width: 4px;
-    height: 4px;
-    background: var(--accent);
-    border-radius: 50%;
-}
-
-.cursor-outline {
-    width: 60px;
-    height: 60px;
-    border: 1px solid var(--accent);
-    border-radius: 50%;
-    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-/* Header & Nav */
-header {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 2.5rem 5%;
-    z-index: 1000;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.header-scrolled {
-    background: rgba(7, 9, 12, 0.9);
-    backdrop-filter: blur(10px);
-    padding: 1.2rem 5%;
-    border-bottom: 1px solid rgba(184, 134, 11, 0.1);
-}
-
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 2.2rem;
-    letter-spacing: -2px;
-    color: #fff;
-    text-decoration: none;
-}
-
-.logo .dot {
-    color: var(--accent);
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 2.5rem;
-}
-
-/* Header links on Home Page: hidden at top, fade in on scroll */
-/* Header & Nav layout logic - Icons always next to Logo when visible */
-nav {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 3rem;
-}
-
-/* On Home Page top, hide them, show on scroll */
-@media (min-width: 769px) {
-    .home-page .nav-links {
-        opacity: 0;
-        visibility: hidden;
-        transition: 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-        transform: translateX(20px);
-    }
-
-    .home-page .header-scrolled .nav-links {
-        opacity: 1;
-        visibility: visible;
-        transform: translateX(0);
-    }
-
-    .nav-text {
-        display: none;
-    }
-}
-
-body:not(.home-page) .nav-icon {
-    width: 110px;
-    height: 110px;
-}
-
-body:not(.home-page) .logo {
-    font-size: 3.5rem;
-}
-
-/* Also make icons larger on home scrolled */
-.home-page .header-scrolled .nav-icon {
-    width: 80px;
-    height: 80px;
-}
-
-/* Previeni sovrapposizione dell'header gigante - Spazio Massiccio */
-body:not(.home-page) main section:first-of-type {
-    padding-top: 480px;
-}
-
-/* Header sempre solido sulle pagine secondarie per evitare trasparenze fastidiose */
-body:not(.home-page) header {
-    background: var(--bg-dark);
-    border-bottom: 1px solid rgba(184, 134, 11, 0.1);
-}
-
-/* Labels eleganti sulle pagine secondarie */
-body:not(.home-page) .nav-text {
-    display: block;
-    font-size: 0.7rem;
-    letter-spacing: 3px;
-    margin-left: 1.2rem;
-    opacity: 0.8;
-}
-
-@media (max-width: 768px) {
-    .nav-text {
-        display: block;
-        margin-left: 1.2rem;
-    }
-
-    .nav-links a {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        justify-content: flex-start;
-        padding: 0.5rem 0;
-    }
-
-    /* On mobile, keep them reasonable even if not home */
-    body:not(.home-page) .nav-icon {
-        width: 80px;
-        height: 80px;
-    }
-
-    body:not(.home-page) nav {
-        justify-content: space-between;
-    }
-}
-
-.nav-links a {
-    color: inherit;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.82rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    opacity: 0.7;
-    transition: 0.3s;
-    display: flex;
-    align-items: center;
-}
-
-.nav-icon {
-    width: 90px;
-    height: 90px;
-    object-fit: contain;
-    filter: brightness(1.8) contrast(1.1);
-    transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.nav-links a:hover .nav-icon {
-    filter: grayscale(0) brightness(1.1) drop-shadow(0 0 15px rgba(184, 134, 11, 0.4));
-    transform: translateY(-8px) scale(1.25);
-}
-
-.nav-links a:hover {
-    opacity: 1;
-    color: var(--accent);
-}
-
-/* Main Content Styles */
-section {
-    padding: 6rem 10%;
-    min-height: 100vh;
-    position: relative;
-    scroll-margin-top: 80px; /* Offset per header fisso */
-}
-
-.main-title {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(3rem, 10vw, 8rem);
-    font-weight: 800;
-    line-height: 0.9;
-    letter-spacing: -4px;
-    margin-bottom: 2rem;
-}
-
-.tagline {
-    font-size: 1.2rem;
-    font-weight: 300;
-    opacity: 0.5;
-    font-style: italic;
-}
-
-/* About row */
-.about-row {
-    display: flex;
-    gap: 6vw;
-    align-items: center;
-    min-height: 70vh;
-}
-
-.about-image {
-    flex: 1;
-    position: relative;
-}
-
-.about-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 2px;
-    position: relative;
-    z-index: 2;
-    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
-}
-
-.about-text {
-    flex: 1.5;
-    z-index: 2;
-}
-
-.about-text h3 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    margin-bottom: 2rem;
-}
-
-.about-text p {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    margin-bottom: 2rem;
-    opacity: 0.8;
-    font-weight: 300;
-}
-
-.frame-deco {
-    position: absolute;
-    top: -2rem;
-    left: -2rem;
-    width: 100%;
-    height: 100%;
-    border: 1px solid var(--accent);
-    z-index: 1;
-    opacity: 0.3;
-}
-
-/* Art Grid */
-.art-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 3rem;
-    margin-top: 4rem;
-}
-
-.art-card {
-    position: relative;
-    overflow: hidden;
-    border-radius: 2px;
-    background: #111;
-    transition: var(--transition-norm);
-    cursor: pointer;
-}
-
-.art-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: 1.2s cubic-bezier(0.23, 1, 0.32, 1);
-    filter: saturate(0.8) contrast(1.1);
-}
-
-.art-card:hover img {
-    transform: scale(1.05);
-    filter: saturate(1) contrast(1);
-}
-
-
-
-/* Lightbox Modal */
-.lightbox {
-    display: none;
-    position: fixed;
-    z-index: 20000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.96);
-    backdrop-filter: blur(8px);
-}
-
-.lightbox-content {
-    margin: auto;
-    display: block;
-    max-height: 85vh;
-    max-width: 90%;
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    animation: zoomIn 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-@keyframes zoomIn {
-    from {
-        transform: translate(-50%, -50%) scale(0.9);
-        opacity: 0;
-    }
-
-    to {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
-}
-
-.close {
-    position: absolute;
-    top: 2rem;
-    right: 4rem;
-    color: #fff;
-    font-size: 3rem;
-    cursor: pointer;
-    z-index: 20001;
-}
-
-.label {
-    border-bottom: 2px solid var(--accent);
-    color: var(--accent);
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    display: inline-block;
-    margin-bottom: 1.5rem;
-}
-
-footer {
-    padding: 4rem 10%;
-    text-align: center;
-    opacity: 0.3;
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-}
-
-/* Hero Icons */
-.hero-icons {
-    position: absolute;
-    bottom: 5vh;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    width: 100%;
-}
-
-.icon-menu {
-    display: flex;
-    justify-content: center;
-    gap: clamp(1rem, 3vw, 4rem);
-    flex-wrap: wrap;
-    padding: 0 5%;
-}
-
-.icon-item {
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: var(--transition-norm);
-}
-
-.icon-item img {
-    width: 65% !important;
-    height: 65% !important;
-    object-fit: contain;
-    transition: 0.4s;
-}
-
-/* PHOTO REALISTIC PAINT TUBE DESIGN */
-.tube-photo-item {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end; /* anchors tail to the bottom */
-    cursor: pointer;
-    text-decoration: none;
-    transform-origin: bottom center;
-    padding: 10px 5px;
-    height: 180px; /* fixed height maintains space while body shrinks */
-    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.tube-horizontal-wrapper {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    width: 100%;
-}
-
-.tube-label {
-    display: none; /* Nascoste su desktop */
-}
-
-.tube-photo-item:hover {
-    transform: translateY(-8px);
-}
-
-.tube-photo {
-    width: 24vw; 
-    max-width: 200px; /* Alato ancora di più per desktop */
-    height: auto;
-    object-fit: contain;
-    z-index: 3;
-    filter: drop-shadow(0 8px 15px rgba(0,0,0,0.6));
-    transform-origin: bottom center; /* anchors to metal crimp */
-    pointer-events: none; /* Prevents dragging image */
-}
-
-/* SQUISH ANIMATION FOR PHOTOS */
-.tube-photo-item.squished .tube-photo {
-    animation: photoSquish 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-}
-
-@keyframes photoSquish {
-    0% { transform: scale(1, 1); }
-    30% { transform: scale(1.1, 0.85); } /* slight bulge */
-    100% { transform: scale(1.2, 0.4); opacity: 0; }
-}
-
-/* PAINT SPLAT (shooting up) */
-.paint-splat {
-    position: absolute;
-    top: 20px; /* near cap */
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 5;
-    background: var(--tube-color);
-    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
-}
-
-.tube-photo-item.squished .paint-splat {
-    animation: splatShoot 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
-}
-
-@keyframes splatShoot {
-    0% { transform: scale(0.5) translateY(0); opacity: 1; border-radius: 50%; }
-    50% { transform: scale(3) translateY(-100px); opacity: 1; border-radius: 30% 70% 50% 50%; } 
-    100% { transform: scale(4.5) translateY(-200px); opacity: 0; border-radius: 40% 60% 70% 30%; }
-}
-
-@media (max-width: 768px) {
-    .tubi-hero {
-        position: relative; 
-        width: 100vw;
-        display: flex;
-        flex-direction: column; 
-        justify-content: center;
-        align-items: center;
-        gap: 1.5rem; /* Gap ridotto per incastrarli tutti in una schermata */
-        z-index: 10;
-        margin: 0;
-        padding: 2vh 0 5vh 0; /* Margini ridotti */
-    }
-
-    .tube-photo-item {
-        position: relative;
-        flex: none; /* Cancelliamo vecchie regie grid/25vw */
-        width: 100%;
-        max-width: none;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: auto;
-        padding: 0;
-        pointer-events: auto;
-        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    }
-
-    /* La scatola di contenimento calcola l'ingombro dell'immagine ruotata.
+                                                :root {
+                                                    --bg-dark: #07090C;
+                                                    --text-light: #F2F2F2;
+                                                    --accent: #B8860B;
+                                                    --accent-glow: rgba(184, 134, 11, 0.2);
+                                                    --transition-norm: 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+                                                }
+
+                                                html {
+                                                    scroll-behavior: smooth;
+                                                }
+
+                                                * {
+                                                    margin: 0;
+                                                    padding: 0;
+                                                    box-sizing: border-box;
+                                                }
+
+                                                body {
+                                                    background: var(--bg-dark);
+                                                    color: var(--text-light);
+                                                    font-family: 'Inter', sans-serif;
+                                                    line-height: 1.6;
+                                                    overflow-x: hidden;
+                                                    cursor: none;
+                                                    -webkit-font-smoothing: antialiased;
+                                                }
+
+                                                /* Texture Grain Overlay */
+                                                .noise-overlay {
+                                                    position: fixed;
+                                                    top: 0;
+                                                    left: 0;
+                                                    width: 100%;
+                                                    height: 100%;
+                                                    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+                                                    opacity: 0.04;
+                                                    pointer-events: none;
+                                                    z-index: 10000;
+                                                }
+
+                                                /* Custom Cursor */
+                                                .cursor-dot,
+                                                .cursor-outline {
+                                                    position: fixed;
+                                                    pointer-events: none;
+                                                    z-index: 10001;
+                                                }
+
+                                                .cursor-dot {
+                                                    width: 4px;
+                                                    height: 4px;
+                                                    background: var(--accent);
+                                                    border-radius: 50%;
+                                                }
+
+                                                .cursor-outline {
+                                                    width: 60px;
+                                                    height: 60px;
+                                                    border: 1px solid var(--accent);
+                                                    border-radius: 50%;
+                                                    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                                                }
+
+                                                /* Header & Nav */
+                                                header {
+                                                    position: fixed;
+                                                    top: 0;
+                                                    width: 100%;
+                                                    padding: 2.5rem 5%;
+                                                    z-index: 1000;
+                                                    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+                                                }
+
+                                                .header-scrolled {
+                                                    background: rgba(7, 9, 12, 0.9);
+                                                    backdrop-filter: blur(10px);
+                                                    padding: 1.2rem 5%;
+                                                    border-bottom: 1px solid rgba(184, 134, 11, 0.1);
+                                                }
+
+                                                nav {
+                                                    display: flex;
+                                                    justify-content: space-between;
+                                                    align-items: center;
+                                                }
+
+                                                .logo {
+                                                    font-family: 'Syne', sans-serif;
+                                                    font-weight: 800;
+                                                    font-size: 2.2rem;
+                                                    letter-spacing: -2px;
+                                                    color: #fff;
+                                                    text-decoration: none;
+                                                }
+
+                                                .logo .dot {
+                                                    color: var(--accent);
+                                                }
+
+                                                .nav-links {
+                                                    list-style: none;
+                                                    display: flex;
+                                                    gap: 2.5rem;
+                                                }
+
+                                                /* Header links on Home Page: hidden at top, fade in on scroll */
+                                                /* Header & Nav layout logic - Icons always next to Logo when visible */
+                                                nav {
+                                                    display: flex;
+                                                    justify-content: flex-start;
+                                                    align-items: center;
+                                                    gap: 3rem;
+                                                }
+
+                                                /* On Home Page top, hide them, show on scroll */
+                                                @media (min-width: 769px) {
+                                                    .home-page .nav-links {
+                                                        opacity: 0;
+                                                        visibility: hidden;
+                                                        transition: 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+                                                        transform: translateX(20px);
+                                                    }
+
+                                                    .home-page .header-scrolled .nav-links {
+                                                        opacity: 1;
+                                                        visibility: visible;
+                                                        transform: translateX(0);
+                                                    }
+
+                                                    .nav-text {
+                                                        display: none;
+                                                    }
+                                                }
+
+                                                body:not(.home-page) .nav-icon {
+                                                    width: 110px;
+                                                    height: 110px;
+                                                }
+
+                                                body:not(.home-page) .logo {
+                                                    font-size: 3.5rem;
+                                                }
+
+                                                /* Also make icons larger on home scrolled */
+                                                .home-page .header-scrolled .nav-icon {
+                                                    width: 80px;
+                                                    height: 80px;
+                                                }
+
+                                                /* Previeni sovrapposizione dell'header gigante - Spazio Massiccio */
+                                                body:not(.home-page) main section:first-of-type {
+                                                    padding-top: 480px;
+                                                }
+
+                                                /* Header sempre solido sulle pagine secondarie per evitare trasparenze fastidiose */
+                                                body:not(.home-page) header {
+                                                    background: var(--bg-dark);
+                                                    border-bottom: 1px solid rgba(184, 134, 11, 0.1);
+                                                }
+
+                                                /* Labels eleganti sulle pagine secondarie */
+                                                body:not(.home-page) .nav-text {
+                                                    display: block;
+                                                    font-size: 0.7rem;
+                                                    letter-spacing: 3px;
+                                                    margin-left: 1.2rem;
+                                                    opacity: 0.8;
+                                                }
+
+                                                @media (max-width: 768px) {
+                                                    .nav-text {
+                                                        display: block;
+                                                        margin-left: 1.2rem;
+                                                    }
+
+                                                    .nav-links a {
+                                                        display: flex;
+                                                        align-items: center;
+                                                        width: 100%;
+                                                        justify-content: flex-start;
+                                                        padding: 0.5rem 0;
+                                                    }
+
+                                                    /* On mobile, keep them reasonable even if not home */
+                                                    body:not(.home-page) .nav-icon {
+                                                        width: 80px;
+                                                        height: 80px;
+                                                    }
+
+                                                    body:not(.home-page) nav {
+                                                        justify-content: space-between;
+                                                    }
+                                                }
+
+                                                .nav-links a {
+                                                    color: inherit;
+                                                    text-decoration: none;
+                                                    font-weight: 600;
+                                                    font-size: 0.82rem;
+                                                    letter-spacing: 2px;
+                                                    text-transform: uppercase;
+                                                    opacity: 0.7;
+                                                    transition: 0.3s;
+                                                    display: flex;
+                                                    align-items: center;
+                                                }
+
+                                                .nav-icon {
+                                                    width: 90px;
+                                                    height: 90px;
+                                                    object-fit: contain;
+                                                    filter: brightness(1.8) contrast(1.1);
+                                                    transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+                                                }
+
+                                                .nav-links a:hover .nav-icon {
+                                                    filter: grayscale(0) brightness(1.1) drop-shadow(0 0 15px rgba(184, 134, 11, 0.4));
+                                                    transform: translateY(-8px) scale(1.25);
+                                                }
+
+                                                .nav-links a:hover {
+                                                    opacity: 1;
+                                                    color: var(--accent);
+                                                }
+
+                                                /* Main Content Styles */
+                                                section {
+                                                    padding: 6rem 10%;
+                                                    min-height: 100vh;
+                                                    position: relative;
+                                                    scroll-margin-top: 80px;
+                                                    /* Offset per header fisso */
+                                                }
+
+                                                .main-title {
+                                                    font-family: 'Syne', sans-serif;
+                                                    font-size: clamp(3rem, 10vw, 8rem);
+                                                    font-weight: 800;
+                                                    line-height: 0.9;
+                                                    letter-spacing: -4px;
+                                                    margin-bottom: 2rem;
+                                                }
+
+                                                .tagline {
+                                                    font-size: 1.2rem;
+                                                    font-weight: 300;
+                                                    opacity: 0.5;
+                                                    font-style: italic;
+                                                }
+
+                                                /* About row */
+                                                .about-row {
+                                                    display: flex;
+                                                    gap: 6vw;
+                                                    align-items: center;
+                                                    min-height: 70vh;
+                                                }
+
+                                                .about-image {
+                                                    flex: 1;
+                                                    position: relative;
+                                                }
+
+                                                .about-image img {
+                                                    width: 100%;
+                                                    height: auto;
+                                                    border-radius: 2px;
+                                                    position: relative;
+                                                    z-index: 2;
+                                                    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5);
+                                                }
+
+                                                .about-text {
+                                                    flex: 1.5;
+                                                    z-index: 2;
+                                                }
+
+                                                .about-text h3 {
+                                                    font-family: 'Syne', sans-serif;
+                                                    font-size: clamp(2.5rem, 6vw, 4.5rem);
+                                                    margin-bottom: 2rem;
+                                                }
+
+                                                .about-text p {
+                                                    font-size: 1.2rem;
+                                                    line-height: 1.8;
+                                                    margin-bottom: 2rem;
+                                                    opacity: 0.8;
+                                                    font-weight: 300;
+                                                }
+
+                                                .frame-deco {
+                                                    position: absolute;
+                                                    top: -2rem;
+                                                    left: -2rem;
+                                                    width: 100%;
+                                                    height: 100%;
+                                                    border: 1px solid var(--accent);
+                                                    z-index: 1;
+                                                    opacity: 0.3;
+                                                }
+
+                                                /* Art Grid */
+                                                .art-grid {
+                                                    display: grid;
+                                                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                                                    gap: 3rem;
+                                                    margin-top: 4rem;
+                                                }
+
+                                                .art-card {
+                                                    position: relative;
+                                                    overflow: hidden;
+                                                    border-radius: 2px;
+                                                    background: #111;
+                                                    transition: var(--transition-norm);
+                                                    cursor: pointer;
+                                                }
+
+                                                .art-card img {
+                                                    width: 100%;
+                                                    height: 100%;
+                                                    object-fit: cover;
+                                                    transition: 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+                                                    filter: saturate(0.8) contrast(1.1);
+                                                }
+
+                                                .art-card:hover img {
+                                                    transform: scale(1.05);
+                                                    filter: saturate(1) contrast(1);
+                                                }
+
+
+
+                                                /* Lightbox Modal */
+                                                .lightbox {
+                                                    display: none;
+                                                    position: fixed;
+                                                    z-index: 20000;
+                                                    left: 0;
+                                                    top: 0;
+                                                    width: 100%;
+                                                    height: 100%;
+                                                    background: rgba(0, 0, 0, 0.96);
+                                                    backdrop-filter: blur(8px);
+                                                }
+
+                                                .lightbox-content {
+                                                    margin: auto;
+                                                    display: block;
+                                                    max-height: 85vh;
+                                                    max-width: 90%;
+                                                    top: 50%;
+                                                    left: 50%;
+                                                    position: absolute;
+                                                    transform: translate(-50%, -50%);
+                                                    animation: zoomIn 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+                                                }
+
+                                                @keyframes zoomIn {
+                                                    from {
+                                                        transform: translate(-50%, -50%) scale(0.9);
+                                                        opacity: 0;
+                                                    }
+
+                                                    to {
+                                                        transform: translate(-50%, -50%) scale(1);
+                                                        opacity: 1;
+                                                    }
+                                                }
+
+                                                .close {
+                                                    position: absolute;
+                                                    top: 2rem;
+                                                    right: 4rem;
+                                                    color: #fff;
+                                                    font-size: 3rem;
+                                                    cursor: pointer;
+                                                    z-index: 20001;
+                                                }
+
+                                                .label {
+                                                    border-bottom: 2px solid var(--accent);
+                                                    color: var(--accent);
+                                                    font-size: 0.7rem;
+                                                    text-transform: uppercase;
+                                                    letter-spacing: 4px;
+                                                    display: inline-block;
+                                                    margin-bottom: 1.5rem;
+                                                }
+
+                                                footer {
+                                                    padding: 4rem 10%;
+                                                    text-align: center;
+                                                    opacity: 0.3;
+                                                    font-size: 0.8rem;
+                                                    letter-spacing: 2px;
+                                                }
+
+                                                /* Hero Icons */
+                                                .hero-icons {
+                                                    position: absolute;
+                                                    bottom: 5vh;
+                                                    left: 50%;
+                                                    transform: translateX(-50%);
+                                                    z-index: 10;
+                                                    width: 100%;
+                                                }
+
+                                                .icon-menu {
+                                                    display: flex;
+                                                    justify-content: center;
+                                                    gap: clamp(1rem, 3vw, 4rem);
+                                                    flex-wrap: wrap;
+                                                    padding: 0 5%;
+                                                }
+
+                                                .icon-item {
+                                                    text-decoration: none;
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                    align-items: center;
+                                                    transition: var(--transition-norm);
+                                                }
+
+                                                .icon-item img {
+                                                    width: 65% !important;
+                                                    height: 65% !important;
+                                                    object-fit: contain;
+                                                    transition: 0.4s;
+                                                }
+
+                                                /* PHOTO REALISTIC PAINT TUBE DESIGN */
+                                                .tube-photo-item {
+                                                    position: relative;
+                                                    display: flex;
+                                                    flex-direction: column;
+                                                    align-items: center;
+                                                    justify-content: flex-end;
+                                                    /* anchors tail to the bottom */
+                                                    cursor: pointer;
+                                                    text-decoration: none;
+                                                    transform-origin: bottom center;
+                                                    padding: 10px 5px;
+                                                    height: 180px;
+                                                    /* fixed height maintains space while body shrinks */
+                                                    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+                                                }
+
+                                                .tube-horizontal-wrapper {
+                                                    position: relative;
+                                                    display: flex;
+                                                    justify-content: center;
+                                                    align-items: flex-end;
+                                                    width: 100%;
+                                                }
+
+                                                .tube-label {
+                                                    display: none;
+                                                    /* Nascoste su desktop */
+                                                }
+
+                                                .tube-photo-item:hover {
+                                                    transform: translateY(-8px);
+                                                }
+
+                                                .tube-photo {
+                                                    width: 24vw;
+                                                    max-width: 200px;
+                                                    /* Alato ancora di più per desktop */
+                                                    height: auto;
+                                                    object-fit: contain;
+                                                    z-index: 3;
+                                                    filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.6));
+                                                    transform-origin: bottom center;
+                                                    /* anchors to metal crimp */
+                                                    pointer-events: none;
+                                                    /* Prevents dragging image */
+                                                }
+
+                                                /* SQUISH ANIMATION FOR PHOTOS */
+                                                .tube-photo-item.squished .tube-photo {
+                                                    animation: photoSquish 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+                                                }
+
+                                                @keyframes photoSquish {
+                                                    0% {
+                                                        transform: scale(1, 1);
+                                                    }
+
+                                                    30% {
+                                                        transform: scale(1.1, 0.85);
+                                                    }
+
+                                                    /* slight bulge */
+                                                    100% {
+                                                        transform: scale(1.2, 0.4);
+                                                        opacity: 0;
+                                                    }
+                                                }
+
+                                                /* PAINT SPLAT (shooting up) */
+                                                .paint-splat {
+                                                    position: absolute;
+                                                    top: 20px;
+                                                    /* near cap */
+                                                    width: 20px;
+                                                    height: 20px;
+                                                    border-radius: 50%;
+                                                    opacity: 0;
+                                                    pointer-events: none;
+                                                    z-index: 5;
+                                                    background: var(--tube-color);
+                                                    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.4));
+                                                }
+
+                                                .tube-photo-item.squished .paint-splat {
+                                                    animation: splatShoot 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+                                                }
+
+                                                @keyframes splatShoot {
+                                                    0% {
+                                                        transform: scale(0.5) translateY(0);
+                                                        opacity: 1;
+                                                        border-radius: 50%;
+                                                    }
+
+                                                    50% {
+                                                        transform: scale(3) translateY(-100px);
+                                                        opacity: 1;
+                                                        border-radius: 30% 70% 50% 50%;
+                                                    }
+
+                                                    100% {
+                                                        transform: scale(4.5) translateY(-200px);
+                                                        opacity: 0;
+                                                        border-radius: 40% 60% 70% 30%;
+                                                    }
+                                                }
+
+                                                @media (max-width: 768px) {
+                                                    .tubi-hero {
+                                                        position: relative;
+                                                        width: 100vw;
+                                                        display: flex;
+                                                        flex-direction: column;
+                                                        justify-content: center;
+                                                        align-items: center;
+                                                        gap: 1.5rem;
+                                                        /* Gap ridotto per incastrarli tutti in una schermata */
+                                                        z-index: 10;
+                                                        margin: 0;
+                                                        padding: 6vh 0 5vh 0;
+                                                        /* Margini ridotti */
+                                                    }
+
+                                                    .tube-photo-item {
+                                                        position: relative;
+                                                        flex: none;
+                                                        /* Cancelliamo vecchie regie grid/25vw */
+                                                        width: 100%;
+                                                        max-width: none;
+                                                        display: flex;
+                                                        flex-direction: column;
+                                                        justify-content: center;
+                                                        align-items: center;
+                                                        height: auto;
+                                                        padding: 0;
+                                                        pointer-events: auto;
+                                                        transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+                                                    }
+
+                                                    /* La scatola di contenimento calcola l'ingombro dell'immagine ruotata.
        Poiché la foto è alta ~2.7 volte la sua larghezza, ruotandola avremo bisogno
        di una scatola larga (ex altezza) e bassa (ex larghezza) */
-    .tube-horizontal-wrapper {
-        position: relative;
-        width: 65vw; /* Più stretti così non rubano altezza in proporzione */
-        height: 24vw; /* Corrisponde matematicamente allo spessore dell'immagine rovesciata */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+                                                    .tube-horizontal-wrapper {
+                                                        position: relative;
+                                                        width: 65vw;
+                                                        /* Più stretti così non rubano altezza in proporzione */
+                                                        height: 24vw;
+                                                        /* Corrisponde matematicamente allo spessore dell'immagine rovesciata */
+                                                        display: flex;
+                                                        justify-content: center;
+                                                        align-items: center;
+                                                    }
 
-    .tube-photo {
-        position: absolute;
-        height: 65vw !important; /* Corrisponde al nuovo width del wrapper quando rovesciato */
-        width: auto !important;
-        max-width: none !important;
-        max-height: none !important;
-        margin: 0;
-        transform-origin: center center;
-        transform: rotate(-90deg); 
-        filter: drop-shadow(15px -10px 15px rgba(0,0,0,0.7)); 
-    }
+                                                    .tube-photo {
+                                                        position: absolute;
+                                                        height: 65vw !important;
+                                                        /* Corrisponde al nuovo width del wrapper quando rovesciato */
+                                                        width: auto !important;
+                                                        max-width: none !important;
+                                                        max-height: none !important;
+                                                        margin: 0;
+                                                        transform-origin: center center;
+                                                        transform: rotate(-90deg);
+                                                        filter: drop-shadow(15px -10px 15px rgba(0, 0, 0, 0.7));
+                                                    }
 
-    .tube-label {
-        display: block;
-        font-family: 'Syne', sans-serif;
-        color: var(--accent);
-        font-size: 0.9rem; /* Testo più piccolo ed elegante per farci stare tutto */
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        margin-top: 0.6rem; 
-        text-align: center;
-        opacity: 0.9;
-        text-shadow: 0 5px 10px rgba(0,0,0,0.8);
-    }
+                                                    .tube-label {
+                                                        display: block;
+                                                        font-family: 'Syne', sans-serif;
+                                                        color: var(--accent);
+                                                        font-size: 0.9rem;
+                                                        /* Testo più piccolo ed elegante per farci stare tutto */
+                                                        font-weight: 700;
+                                                        text-transform: uppercase;
+                                                        letter-spacing: 3px;
+                                                        margin-top: 0.6rem;
+                                                        text-align: center;
+                                                        opacity: 0.9;
+                                                        text-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
+                                                    }
 
-    /* Reset manual positions that might linger */
-    .tube-photo-item:nth-child(n) {
-        bottom: 0; left: auto; right: auto; transform: none; z-index: 5;
-    }
+                                                    /* Reset manual positions that might linger */
+                                                    .tube-photo-item:nth-child(n) {
+                                                        bottom: 0;
+                                                        left: auto;
+                                                        right: auto;
+                                                        transform: none;
+                                                        z-index: 5;
+                                                    }
 
-    .tube-photo-item:hover {
-        transform: translateY(-8px) scale(1.03) !important;
-        z-index: 20 !important;
-    }
+                                                    .tube-photo-item:hover {
+                                                        transform: translateY(-8px) scale(1.03) !important;
+                                                        z-index: 20 !important;
+                                                    }
 
-    /* Override squish animation che manterrebbe asse sbagliato per l'immagine */
-    .tube-photo-item.squished .tube-photo {
-        transform: rotate(-90deg) scale(0.9, 1.1) !important; 
-    }
+                                                    /* Override squish animation che manterrebbe asse sbagliato per l'immagine */
+                                                    .tube-photo-item.squished .tube-photo {
+                                                        transform: rotate(-90deg) scale(0.9, 1.1) !important;
+                                                    }
 
-    /* Override posizionamento splat per cellulari (tappo a sinistra) */
-    .paint-splat {
-        top: calc(50% - 10px);
-        left: 20px; /* Vicino al tappo sul lato sinistro */
-    }
+                                                    /* Override posizionamento splat per cellulari (tappo a sinistra) */
+                                                    .paint-splat {
+                                                        top: calc(50% - 10px);
+                                                        left: 20px;
+                                                        /* Vicino al tappo sul lato sinistro */
+                                                    }
 
-    /* Animazione schizzo verso sinistra */
-    .tube-photo-item.squished .paint-splat {
-        animation: splatShootMobile 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
-    }
+                                                    /* Animazione schizzo verso sinistra */
+                                                    .tube-photo-item.squished .paint-splat {
+                                                        animation: splatShootMobile 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+                                                    }
 
-    @keyframes splatShootMobile {
-        0% { transform: scale(0.5) translateX(0); opacity: 1; border-radius: 50%; }
-        50% { transform: scale(3) translateX(-120px) rotate(-45deg); opacity: 1; border-radius: 30% 70% 50% 50%; } 
-        100% { transform: scale(5) translateX(-220px) rotate(-90deg); opacity: 0; border-radius: 40% 60% 70% 30%; }
-    }
+                                                    @keyframes splatShootMobile {
+                                                        0% {
+                                                            transform: scale(0.5) translateX(0);
+                                                            opacity: 1;
+                                                            border-radius: 50%;
+                                                        }
 
-    #hero {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start; 
-        padding-top: 60px; /* Riduciamo lo spazio morto in alto */
-        padding-bottom: 0;
-        height: auto;
-        min-height: 100svh;
-        overflow-x: hidden; 
-    }
-}
+                                                        50% {
+                                                            transform: scale(3) translateX(-120px) rotate(-45deg);
+                                                            opacity: 1;
+                                                            border-radius: 30% 70% 50% 50%;
+                                                        }
 
-/* Eliminati Orbs per uniformità sfondo */
+                                                        100% {
+                                                            transform: scale(5) translateX(-220px) rotate(-90deg);
+                                                            opacity: 0;
+                                                            border-radius: 40% 60% 70% 30%;
+                                                        }
+                                                    }
 
-/* Mobile Menu Toggle Styling */
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    z-index: 1001;
-}
+                                                    #hero {
+                                                        position: relative;
+                                                        display: flex;
+                                                        flex-direction: column;
+                                                        justify-content: flex-start;
+                                                        padding-top: 60px;
+                                                        /* Riduciamo lo spazio morto in alto */
+                                                        padding-bottom: 0;
+                                                        height: auto;
+                                                        min-height: 100svh;
+                                                        overflow-x: hidden;
+                                                    }
+                                                }
 
-.menu-toggle span {
-    width: 25px;
-    height: 2px;
-    background: #fff;
-    transition: 0.3s;
-}
+                                                /* Eliminati Orbs per uniformità sfondo */
 
-.menu-toggle.toggle-active span:nth-child(1) {
-    transform: rotate(45deg) translateY(10px);
-}
+                                                /* Mobile Menu Toggle Styling */
+                                                .menu-toggle {
+                                                    display: none;
+                                                    flex-direction: column;
+                                                    gap: 5px;
+                                                    cursor: pointer;
+                                                    z-index: 1001;
+                                                }
 
-.menu-toggle.toggle-active span:nth-child(2) {
-    opacity: 0;
-}
+                                                .menu-toggle span {
+                                                    width: 25px;
+                                                    height: 2px;
+                                                    background: #fff;
+                                                    transition: 0.3s;
+                                                }
 
-.menu-toggle.toggle-active span:nth-child(3) {
-    transform: rotate(-45deg) translateY(-10px);
-}
+                                                .menu-toggle.toggle-active span:nth-child(1) {
+                                                    transform: rotate(45deg) translateY(10px);
+                                                }
 
-@media (max-width: 768px) {
+                                                .menu-toggle.toggle-active span:nth-child(2) {
+                                                    opacity: 0;
+                                                }
 
-    /* Nessun cursore personalizzato su touch */
-    .cursor-dot,
-    .cursor-outline {
-        display: none;
-    }
+                                                .menu-toggle.toggle-active span:nth-child(3) {
+                                                    transform: rotate(-45deg) translateY(-10px);
+                                                }
 
-    body {
-        cursor: auto;
-    }
+                                                @media (max-width: 768px) {
 
-    /* Rimuovi l'header (Logo FF e Hamburger) completamente dalla Home Page su mobile */
-    .home-page header {
-        display: none !important;
-    }
+                                                    /* Nessun cursore personalizzato su touch */
+                                                    .cursor-dot,
+                                                    .cursor-outline {
+                                                        display: none;
+                                                    }
 
-    /* Header compatto (per eventuali altre pagine future) */
-    header {
-        padding: 1rem 5%;
-        background: rgba(7, 9, 12, 0.95);
-        backdrop-filter: blur(12px);
-        border-bottom: 1px solid rgba(184, 134, 11, 0.15);
-    }
+                                                    body {
+                                                        cursor: auto;
+                                                    }
 
-    /* Logo ridotto */
-    .logo {
-        font-size: 1.6rem;
-    }
+                                                    /* Rimuovi l'header (Logo FF e Hamburger) completamente dalla Home Page su mobile */
+                                                    .home-page header {
+                                                        display: none !important;
+                                                    }
 
-    /* Solleva titolo e sottotitolo Home per non coprire i tubetti */
-    .hero-content {
-        padding-top: 2vh;
-        margin-bottom: -2rem;
-    }
+                                                    /* Header compatto (per eventuali altre pagine future) */
+                                                    header {
+                                                        padding: 1rem 5%;
+                                                        background: rgba(7, 9, 12, 0.95);
+                                                        backdrop-filter: blur(12px);
+                                                        border-bottom: 1px solid rgba(184, 134, 11, 0.15);
+                                                    }
 
-    .main-title {
-        font-size: 3.8rem; /* Titolo più grande e impattante */
-        line-height: 0.85;
-        margin-bottom: 0.8rem;
-        letter-spacing: -3px;
-    }
+                                                    /* Logo ridotto */
+                                                    .logo {
+                                                        font-size: 1.6rem;
+                                                    }
 
-    .tagline {
-        font-size: 0.95rem;
-        opacity: 0.6;
-    }
+                                                    /* Solleva titolo e sottotitolo Home per non coprire i tubetti */
+                                                    .hero-content {
+                                                        padding-top: 2vh;
+                                                        margin-bottom: -2rem;
+                                                    }
 
-    /* Reset logo grande su mobile (pagine secondarie) */
-    body:not(.home-page) .logo {
-        font-size: 1.6rem;
-    }
+                                                    .main-title {
+                                                        font-size: 3.2rem;
+                                                        /* Titolo più grande e impattante */
+                                                        line-height: 0.85;
+                                                        margin-bottom: 0.4rem;
+                                                        letter-spacing: -3px;
+                                                    }
 
-    /* Hamburger visibile */
-    .menu-toggle {
-        display: flex;
-    }
+                                                    .tagline {
+                                                        font-size: 0.95rem;
+                                                        opacity: 0.6;
+                                                        margin-bottom: 2rem;
+                                                    }
 
-    /* Pannello laterale slide-in più stretto a mo' di banner */
-    .nav-links {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 260px; /* Banner laterale più sottile */
-        height: 100vh;
-        background: rgba(7, 9, 12, 0.99);
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 1rem;
-        padding: 3rem 1.5rem;
-        transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        z-index: 1000;
-        border-left: 1px solid rgba(184, 134, 11, 0.15);
-    }
+                                                    /* Reset logo grande su mobile (pagine secondarie) */
+                                                    body:not(.home-page) .logo {
+                                                        font-size: 1.6rem;
+                                                    }
 
-    .nav-links.active {
-        right: 0;
-    }
+                                                    /* Hamburger visibile */
+                                                    .menu-toggle {
+                                                        display: flex;
+                                                    }
 
-    /* Link nel pannello */
-    .nav-links a {
-        font-size: 1.1rem;
-        opacity: 1;
-        gap: 1.2rem;
-        display: flex;
-        align-items: center;
-        width: 100%;
-        padding: 0.5rem 0;
-    }
+                                                    /* Pannello laterale slide-in più stretto a mo' di banner */
+                                                    .nav-links {
+                                                        position: fixed;
+                                                        top: 0;
+                                                        right: -100%;
+                                                        width: 260px;
+                                                        /* Banner laterale più sottile */
+                                                        height: 100vh;
+                                                        background: rgba(7, 9, 12, 0.99);
+                                                        flex-direction: column;
+                                                        justify-content: center;
+                                                        align-items: flex-start;
+                                                        gap: 1rem;
+                                                        padding: 3rem 1.5rem;
+                                                        transition: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+                                                        z-index: 1000;
+                                                        border-left: 1px solid rgba(184, 134, 11, 0.15);
+                                                    }
 
-    /* Icone nel pannello: grandi e nitide, solo icone senza testo */
-    .nav-icon {
-        width: 165px;
-        height: 165px;
-        margin-right: 0;
-        filter: contrast(1.1);
-    }
+                                                    .nav-links.active {
+                                                        right: 0;
+                                                    }
 
-    /* Testo nascosto nel pannello mobile: solo icone */
-    .nav-text {
-        display: none !important;
-    }
+                                                    /* Link nel pannello */
+                                                    .nav-links a {
+                                                        font-size: 1.1rem;
+                                                        opacity: 1;
+                                                        gap: 1.2rem;
+                                                        display: flex;
+                                                        align-items: center;
+                                                        width: 100%;
+                                                        padding: 0.5rem 0;
+                                                    }
 
-    /* Icone centrate nel pannello */
-    .nav-links a {
-        justify-content: center;
-        padding: 0; /* Riduce ulteriormente lo spazio verticale */
-    }
+                                                    /* Icone nel pannello: grandi e nitide, solo icone senza testo */
+                                                    .nav-icon {
+                                                        width: 165px;
+                                                        height: 165px;
+                                                        margin-right: 0;
+                                                        filter: contrast(1.1);
+                                                    }
 
-    .nav-links {
-        align-items: center;
-        gap: 0.5rem; /* Icone molto più vicine */
-    }
+                                                    /* Testo nascosto nel pannello mobile: solo icone */
+                                                    .nav-text {
+                                                        display: none !important;
+                                                    }
 
-    /* Reset padding massiccio pagine secondarie su mobile */
-    body:not(.home-page) main section:first-of-type {
-        padding-top: 6rem;
-    }
+                                                    /* Icone centrate nel pannello */
+                                                    .nav-links a {
+                                                        justify-content: center;
+                                                        padding: 0;
+                                                        /* Riduce ulteriormente lo spazio verticale */
+                                                    }
 
-    body:not(.home-page) .nav-icon {
-        width: 165px;
-        height: 165px;
-    }
+                                                    .nav-links {
+                                                        align-items: center;
+                                                        gap: 0.5rem;
+                                                        /* Icone molto più vicine */
+                                                    }
 
-    body:not(.home-page) nav {
-        justify-content: space-between;
-        gap: 0;
-    }
+                                                    /* Reset padding massiccio pagine secondarie su mobile */
+                                                    body:not(.home-page) main section:first-of-type {
+                                                        padding-top: 6rem;
+                                                    }
 
-    /* Sezioni generali */
-    section {
-        padding: 3rem 5%;
-        min-height: 0;
-        scroll-margin-top: 70px;
-    }
+                                                    body:not(.home-page) .nav-icon {
+                                                        width: 165px;
+                                                        height: 165px;
+                                                    }
 
-    /* Gallery sections non forzano 100vh */
-    .gallery-section {
-        min-height: 0;
-    }
+                                                    body:not(.home-page) nav {
+                                                        justify-content: space-between;
+                                                        gap: 0;
+                                                    }
 
-    /* Hero removed here to not override the one above */
+                                                    /* Sezioni generali */
+                                                    section {
+                                                        padding: 3rem 5%;
+                                                        min-height: 0;
+                                                        scroll-margin-top: 70px;
+                                                    }
 
-    .main-title {
-        font-size: clamp(2.4rem, 10vw, 3.5rem);
-        letter-spacing: -2px;
-        line-height: 1.05;
-        margin-top: 0;
-    }
+                                                    /* Gallery sections non forzano 100vh */
+                                                    .gallery-section {
+                                                        min-height: 0;
+                                                    }
 
-    .tagline {
-        font-size: 0.95rem;
-        margin-top: 0.5rem;
-    }
+                                                    /* Hero removed here to not override the one above */
 
-    /* Hero icons and icon-menu overrides removed to prevent conflicts with main mobile layout */
+                                                    .main-title {
+                                                        font-size: clamp(2.4rem, 10vw, 3.5rem);
+                                                        letter-spacing: -2px;
+                                                        line-height: 1.05;
+                                                        margin-top: 0;
+                                                    }
 
-    /* Removed overridden tubesizes, now globally perfectly narrow */
+                                                    .tagline {
+                                                        font-size: 0.95rem;
+                                                        margin-top: 0.5rem;
+                                                    }
 
-    /* About: colonna singola */
-    .about-row {
-        flex-direction: column;
-        gap: 2rem;
-    }
+                                                    /* Hero icons and icon-menu overrides removed to prevent conflicts with main mobile layout */
 
-    .about-image {
-        width: 100%;
-        max-height: 45vh;
-        overflow: hidden;
-    }
+                                                    /* Removed overridden tubesizes, now globally perfectly narrow */
 
-    .about-image img {
-        max-height: 45vh;
-        object-fit: cover;
-    }
+                                                    /* About: colonna singola */
+                                                    .about-row {
+                                                        flex-direction: column;
+                                                        gap: 2rem;
+                                                    }
 
-    .about-text h3 {
-        font-size: 1.8rem;
-    }
+                                                    .about-image {
+                                                        width: 100%;
+                                                        max-height: 45vh;
+                                                        overflow: hidden;
+                                                    }
 
-    .about-text p {
-        font-size: 1rem;
-    }
+                                                    .about-image img {
+                                                        max-height: 45vh;
+                                                        object-fit: cover;
+                                                    }
 
-    /* Galleria 3 colonne per immagini piccolissime (almeno 6 visibili) */
-    .art-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0.5rem;
-        margin-top: 1rem;
-    }
+                                                    .about-text h3 {
+                                                        font-size: 1.8rem;
+                                                    }
 
-    .art-card {
-        height: 120px;
-    }
+                                                    .about-text p {
+                                                        font-size: 1rem;
+                                                    }
 
-    .art-card img {
-        height: 100%;
-        max-height: 100%;
-        object-fit: cover;
-    }
+                                                    /* Galleria 3 colonne per immagini piccolissime (almeno 6 visibili) */
+                                                    .art-grid {
+                                                        grid-template-columns: repeat(3, 1fr);
+                                                        gap: 0.5rem;
+                                                        margin-top: 1rem;
+                                                    }
 
-    /* Lightbox */
-    .close {
-        right: 1.5rem;
-        top: 1rem;
-        font-size: 2.2rem;
-    }
+                                                    .art-card {
+                                                        height: 120px;
+                                                    }
 
-    /* Nascondi decorazione cornice su mobile */
-    .frame-deco {
-        display: none;
-    }
-}
+                                                    .art-card img {
+                                                        height: 100%;
+                                                        max-height: 100%;
+                                                        object-fit: cover;
+                                                    }
 
-/* Extra small: smartphone stretto */
-@media (max-width: 400px) {
-    /* Removed overridden tubesizes */
+                                                    /* Lightbox */
+                                                    .close {
+                                                        right: 1.5rem;
+                                                        top: 1rem;
+                                                        font-size: 2.2rem;
+                                                    }
 
-    .art-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+                                                    /* Nascondi decorazione cornice su mobile */
+                                                    .frame-deco {
+                                                        display: none;
+                                                    }
+                                                }
 
-    .main-title {
-        font-size: 2rem;
-    }
-}
+                                                /* Extra small: smartphone stretto */
+                                                @media (max-width: 400px) {
+                                                    /* Removed overridden tubesizes */
+
+                                                    .art-grid {
+                                                        grid-template-columns: repeat(2, 1fr);
+                                                    }
+
+                                                    .main-title {
+                                                        font-size: 2rem;
+                                                    }
+                                                }
