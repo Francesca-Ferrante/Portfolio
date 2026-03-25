@@ -499,13 +499,24 @@ footer {
 /* Mobile QNav */
 @media (max-width: 768px) {
     .icon-menu {
-        gap: 0.5rem; /* tight gap to fit 4 side-by-side */
-        flex-wrap: nowrap; /* keep them in a single row */
+        gap: 2rem; /* space between rows */
+        flex-wrap: wrap; /* allow wrapping to fit giant tubes in a 2x2 layout */
         overflow-x: visible;
         width: 100%;
-        justify-content: space-around;
-        align-items: flex-end; /* assicura che appoggino tutti sulla stessa base */
+        justify-content: center;
+        align-items: flex-end;
         padding: 0;
+    }
+
+    .tube-photo-item {
+        height: auto; /* let it grow */
+    }
+
+    .tube-photo {
+        width: 44vw; /* MASSIVE, almost half the screen per tube */
+        max-width: none;
+        height: auto;
+        max-height: 48vh;
     }
 
     .hero-icons {
