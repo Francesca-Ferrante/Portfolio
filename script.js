@@ -88,5 +88,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 5. Paint Tube Click Animation
+    const tubeItems = document.querySelectorAll('.tube-item');
+    tubeItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            
+            // If already squishing, ignore click
+            if(this.classList.contains('squished')) return;
+            
+            e.preventDefault();
+            this.classList.add('squished');
+            
+            const target = this.getAttribute('data-target');
+            const href = this.getAttribute('href');
+            const isBlank = this.getAttribute('target') === '_blank';
+            
+            // Wait for animation to squirt paint
+            setTimeout(() => {
+                if (isBlank) {
+                    window.open(href, '_blank');
+                    this.classList.remove('squished'); // Reset so it's normal if they switch back
+                } else if (target && target.startsWith('#')) {
+                    const sec = document.querySelector(target);
+                    if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+                    // Remove squish after scroll
+                    setTimeout(() => this.classList.remove('squished'), 600);
+                } else {
+                    window.location.href = href;
+                }
+            }, 750); // Delay matches CSS animation time
+        });
+    });
+
     console.log("Atelier Digitale ottimizzato anche per Mobile!");
 });
