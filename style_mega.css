@@ -509,16 +509,16 @@ footer {
 
 @media (max-width: 768px) {
     .tubi-hero {
-        position: relative; /* Sposta il flusso fuori dal bottom fisso per occupare spazio verticale */
+        position: relative; 
         width: 100vw;
         display: flex;
-        flex-direction: column; /* Impilati uno sotto l'altro */
+        flex-direction: column; 
         justify-content: center;
         align-items: center;
-        gap: 4rem; /* Spazio elegante tra ogni tubetto orizzontale */
+        gap: 1.5rem; /* Gap ridotto per incastrarli tutti in una schermata */
         z-index: 10;
         margin: 0;
-        padding: 5vh 0 10vh 0; /* Margini per respirare ai bordi */
+        padding: 2vh 0 5vh 0; /* Margini ridotti */
     }
 
     .tube-photo-item {
@@ -541,8 +541,8 @@ footer {
        di una scatola larga (ex altezza) e bassa (ex larghezza) */
     .tube-horizontal-wrapper {
         position: relative;
-        width: 90vw; 
-        height: 33vw; /* Calcolato per contenere un tubetto spesso 33% della propria lunghezza */
+        width: 65vw; /* Più stretti così non rubano altezza in proporzione */
+        height: 24vw; /* Corrisponde matematicamente allo spessore dell'immagine rovesciata */
         display: flex;
         justify-content: center;
         align-items: center;
@@ -550,25 +550,25 @@ footer {
 
     .tube-photo {
         position: absolute;
-        height: 90vw !important; /* L'ex altezza diventa la larghezza occupata (90% dello schermo) */
+        height: 65vw !important; /* Corrisponde al nuovo width del wrapper quando rovesciato */
         width: auto !important;
         max-width: none !important;
         max-height: none !important;
         margin: 0;
         transform-origin: center center;
-        transform: rotate(-90deg); /* Sdraiati su un lato (tappo a sinistra) */
-        filter: drop-shadow(15px -10px 15px rgba(0,0,0,0.7)); /* Ombra adatta alla rotazione */
+        transform: rotate(-90deg); 
+        filter: drop-shadow(15px -10px 15px rgba(0,0,0,0.7)); 
     }
 
     .tube-label {
         display: block;
         font-family: 'Syne', sans-serif;
         color: var(--accent);
-        font-size: 1.4rem;
+        font-size: 0.9rem; /* Testo più piccolo ed elegante per farci stare tutto */
         font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 5px;
-        margin-top: 2rem; /* Distanza tra l'immagine sdraiata e il testo */
+        letter-spacing: 3px;
+        margin-top: 0.6rem; 
         text-align: center;
         opacity: 0.9;
         text-shadow: 0 5px 10px rgba(0,0,0,0.8);
@@ -611,11 +611,11 @@ footer {
         display: flex;
         flex-direction: column;
         justify-content: flex-start; 
-        padding-top: 80px; 
+        padding-top: 60px; /* Riduciamo lo spazio morto in alto */
         padding-bottom: 0;
         height: auto;
         min-height: 100svh;
-        overflow-x: hidden; /* prevents horizontal scrolling issues */
+        overflow-x: hidden; 
     }
 }
 
