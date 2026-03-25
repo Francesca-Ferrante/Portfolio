@@ -584,9 +584,26 @@ footer {
         z-index: 20 !important;
     }
 
+    /* Override squish animation che manterrebbe asse sbagliato per l'immagine */
     .tube-photo-item.squished .tube-photo {
-        /* Override squish animation che manterrebbe asse sbagliato */
         transform: rotate(-90deg) scale(0.9, 1.1) !important; 
+    }
+
+    /* Override posizionamento splat per cellulari (tappo a sinistra) */
+    .paint-splat {
+        top: calc(50% - 10px);
+        left: 20px; /* Vicino al tappo sul lato sinistro */
+    }
+
+    /* Animazione schizzo verso sinistra */
+    .tube-photo-item.squished .paint-splat {
+        animation: splatShootMobile 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    }
+
+    @keyframes splatShootMobile {
+        0% { transform: scale(0.5) translateX(0); opacity: 1; border-radius: 50%; }
+        50% { transform: scale(3) translateX(-120px) rotate(-45deg); opacity: 1; border-radius: 30% 70% 50% 50%; } 
+        100% { transform: scale(5) translateX(-220px) rotate(-90deg); opacity: 0; border-radius: 40% 60% 70% 30%; }
     }
 
     #hero {
