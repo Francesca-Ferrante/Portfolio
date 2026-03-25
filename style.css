@@ -510,14 +510,14 @@ footer {
 
     .tube-photo-item {
         height: auto;
-        padding: 2px;
+        padding: 0;
     }
 
     .tube-photo {
-        width: 23vw; /* leggermente più grande mantenendo fila singola */
+        width: 24vw; /* 4 affiancati che riempiono la larghezza */
         max-width: none;
         height: auto;
-        max-height: 52vh; /* più alto = tubetti visivamente più imponenti */
+        max-height: 55vh; /* alto quanto la metà inferiore dello schermo */
     }
 
     .hero-icons {
