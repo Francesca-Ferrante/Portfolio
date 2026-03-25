@@ -497,57 +497,52 @@ footer {
 
 @media (max-width: 768px) {
     .tubi-hero {
-        display: flex; /* Flexbox classico: il modo più sicuro di centrare 4 cose */
-        justify-content: space-around;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap !important; /* Forza l'allineamento a singola riga senza andare a capo */
+        justify-content: center;
         align-items: flex-end;
+        position: absolute;
+        bottom: 0px;
+        left: 0;
         width: 100vw;
-        margin-left: -5vw;
-        height: 60vh;
-        overflow: visible;
+        height: 55vh;
         z-index: 10;
-        pointer-events: none;
+        overflow: visible;
+        margin: 0;
+        padding: 0;
     }
 
     .tube-photo-item {
-        flex: 1; /* Dividiamo lo spazio esattamente in 4 fettine */
+        flex: 0 0 25%; /* Ognuno prende esattamente il 25%, matematicamente impossibile che vadano a capo */
+        width: 25%;
+        max-width: 25%;
         display: flex;
         justify-content: center;
         align-items: flex-end;
-        height: auto;
+        position: relative;
         padding: 0;
         overflow: visible;
-        pointer-events: auto;
     }
 
     .tube-photo {
-        width: auto;
-        height: auto;
+        width: 145%; /* Esce dal suo limite del 25% per sovrapporsi agli altri in modo artistico */
         max-width: none;
-        max-height: 80vh; 
-        /* Zoom massiccio: ogni tubetto esce dalla sua fettina del 25% 
-           e invade quelle vicine per sembrare monumentale */
-        transform: scale(1.45); 
+        height: auto;
+        margin-left: -22.5%; /* Centra l'immagine più larga del suo spazio limitato */
         transform-origin: bottom center;
         filter: drop-shadow(0 15px 30px rgba(0,0,0,0.8));
-        z-index: 11;
-    }
-
-    .hero-icons {
-        position: absolute;
-        bottom: -20px; /* touch the screen bottom */
-        left: 0;
-        width: 100vw;
-        padding-bottom: 0;
-        z-index: 10;
     }
 
     #hero {
+        position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: flex-end; /* push everything to bottom */
-        padding-bottom: 0; 
-        padding-top: 60px; /* pull title up */
+        justify-content: flex-start; /* title stays up */
+        padding-top: 100px; 
+        padding-bottom: 0;
         min-height: 100svh;
+        overflow: hidden; /* prevents horizontal scrolling issues from massive tubes */
     }
 }
 
@@ -700,15 +695,7 @@ footer {
         min-height: 0;
     }
 
-    /* Hero */
-    #hero {
-        padding-top: 120px;
-        min-height: 85vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding-bottom: 2rem;
-    }
+    /* Hero removed here to not override the one above */
 
     .main-title {
         font-size: clamp(2.4rem, 10vw, 3.5rem);
