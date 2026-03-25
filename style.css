@@ -497,15 +497,16 @@ footer {
 
 /* Mobile QNav */
 @media (max-width: 768px) {
-    .icon-menu {
-        display: grid; /* griglia a 4 colonne per non farli mai sparire */
+    .tubi-hero {
+        display: grid; /* griglia a 4 colonne per garantire che siano tutti e 4 */
         grid-template-columns: repeat(4, 1fr);
         gap: 0;
         width: 100vw;
         margin-left: -5%;
         padding: 0;
         align-items: flex-end;
-        overflow: visible;
+        overflow: visible; /* per far debordare i giganti senza sparire */
+        z-index: 10;
     }
 
     .tube-photo-item {
@@ -519,10 +520,10 @@ footer {
     }
 
     .tube-photo {
-        width: 135%; /* Oltre il 100% per farli debordare e sovrapporsi */
+        width: 125%; /* Monumentali ma non troppo da uccidere Safari */
         max-width: none;
         height: auto;
-        max-height: 80vh; 
+        max-height: 80svh; 
         transform-origin: bottom center;
         filter: drop-shadow(0 10px 20px rgba(0,0,0,0.7));
     }
