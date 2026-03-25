@@ -435,11 +435,11 @@ footer {
 .tube-item {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Splat -> Cap -> Nozzle -> Body -> Tail */
     align-items: center;
     cursor: pointer;
     text-decoration: none;
-    transform-origin: center center;
+    transform-origin: bottom center; /* anchors at the tail */
     padding: 10px;
     transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -448,65 +448,65 @@ footer {
     transform: translateY(-8px);
 }
 
-.tube-item:hover img {
-    filter: drop-shadow(0 0 10px rgba(184, 134, 11, 0.5)) brightness(2.5);
-    transform: scale(1.1);
+.tube-cap {
+    width: 45%;
+    height: 35px;
+    background: repeating-linear-gradient(90deg, #666, #666 4px, #444 4px, #444 8px);
+    border-radius: 4px 4px 2px 2px;
+    z-index: 4;
+    border: 1px solid #333;
+    box-shadow: inset 0 3px 5px rgba(255,255,255,0.2);
+    position: relative;
 }
 
-.tube-tail {
-    width: 60%;
-    height: 12px;
-    background: #444;
-    border-radius: 3px 3px 0 0;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.8);
-    position: relative;
+.tube-nozzle {
+    width: 35%;
+    height: 15px;
+    background: linear-gradient(90deg, #aaa, #ddd, #aaa);
+    clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
     z-index: 2;
-    background-image: repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0,0,0,0.4) 4px, rgba(0,0,0,0.4) 6px);
 }
 
 .tube-body {
     width: clamp(100px, 12vw, 150px);
     height: clamp(140px, 18vw, 210px);
-    background: linear-gradient(90deg, #111, #333 50%, #111);
-    border-radius: 8px;
+    background: linear-gradient(to bottom, 
+        var(--tube-color) 0%, 
+        var(--tube-color) 35%, 
+        #fdfdfd 35%, 
+        #fdfdfd 75%, 
+        #c4c4c4 75%, 
+        #999999 100%);
+    border-radius: 8px 8px 2px 2px;
     z-index: 3;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
-    box-shadow: inset -5px 0 15px rgba(0,0,0,0.8), inset 5px 0 15px rgba(255,255,255,0.1), 0 10px 20px rgba(0,0,0,0.6);
+    box-shadow: inset -5px 0 15px rgba(0,0,0,0.3), inset 5px 0 15px rgba(255,255,255,0.3), 0 10px 20px rgba(0,0,0,0.6);
     position: relative;
 }
 
 .tube-label {
     width: 100%;
-    height: 65%;
-    background: #0a0a0a;
-    border: 1px solid rgba(184, 134, 11, 0.4);
-    border-radius: 4px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.tube-nozzle {
-    width: 40%;
-    height: 15px;
-    background: #666;
-    clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
-    z-index: 2;
-    background: linear-gradient(90deg, #444, #888, #444);
+.tube-body img {
+    filter: brightness(0) !important; /* Makes white icon completely black */
+    opacity: 0.9;
 }
 
-.tube-cap {
-    width: 45%;
-    height: 30px;
-    background: #111;
-    border-radius: 3px;
-    z-index: 4;
-    border-top: 2px solid #333;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
-    position: relative;
+.tube-tail {
+    width: clamp(100px, 12vw, 150px);
+    height: 18px;
+    background: #888;
+    background-image: repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0,0,0,0.2) 4px, rgba(0,0,0,0.2) 8px);
+    border-radius: 0 0 3px 3px;
+    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.4);
+    z-index: 2;
 }
 
 /* SQUISH ANIMATION */
@@ -520,32 +520,28 @@ footer {
 
 @keyframes tubeSquish {
     0% { transform: scale(1, 1); }
-    30% { transform: scale(1.15, 0.7) translateY(10px); }
-    100% { transform: scale(1.1, 0.4) translateY(20px); }
+    30% { transform: scale(1.15, 0.7); } /* squish down */
+    100% { transform: scale(1.1, 0.4); opacity: 0; }
 }
 
 @keyframes capPop {
     0% { transform: translateY(0); }
-    100% { transform: scale(1.2) translateY(5px); opacity: 0; }
+    100% { transform: translateY(-20px) scale(1.2) rotate(15deg); opacity: 0; } /* pop UP */
 }
 
-/* PAINT SPLAT */
+/* PAINT SPLAT (shooting up) */
 .paint-splat {
     position: absolute;
-    bottom: 25px;
-    width: 30px;
-    height: 30px;
+    top: 5px; /* starting near cap */
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
     opacity: 0;
     pointer-events: none;
     z-index: 5;
-    filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5));
+    background: var(--tube-color);
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.4));
 }
-
-.splat-1 { background: #EBCF8A; } /* Gold-ish */
-.splat-2 { background: #85BDBA; } /* Teal/Oil */
-.splat-3 { background: #E18A9E; } /* Watercolor Pink */
-.splat-4 { background: #E12A68; } /* IG vibrant */
 
 .tube-item.squished .paint-splat {
     animation: splatShoot 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
@@ -553,8 +549,8 @@ footer {
 
 @keyframes splatShoot {
     0% { transform: scale(0.5) translateY(0); opacity: 1; border-radius: 50% 50% 50% 50%; }
-    50% { transform: scale(2.5) translateY(80px); opacity: 1; border-radius: 40% 60% 70% 30%; }
-    100% { transform: scale(4) translateY(180px); opacity: 0; border-radius: 30% 70% 50% 50%; }
+    50% { transform: scale(2.5) translateY(-80px); opacity: 1; border-radius: 30% 70% 50% 50%; } /* UP */
+    100% { transform: scale(4) translateY(-180px); opacity: 0; border-radius: 40% 60% 70% 30%; }
 }
 
 /* Mobile QNav */
@@ -770,8 +766,10 @@ footer {
         justify-content: center;
     }
 
+    .tube-body, .tube-tail {
+        width: 140px;
+    }
     .tube-body {
-        width: 130px;
         height: 180px;
     }
 
@@ -832,8 +830,10 @@ footer {
 
 /* Extra small: smartphone stretto */
 @media (max-width: 400px) {
-    .tube-body {
+    .tube-body, .tube-tail {
         width: 100px;
+    }
+    .tube-body {
         height: 140px;
     }
 
