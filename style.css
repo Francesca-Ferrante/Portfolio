@@ -512,24 +512,24 @@ footer {
         height: auto;
         padding: 0;
         flex: 1; /* evenly fill 100vw */
+        margin: 0 -4vw; /* force overlap */
     }
 
     .tube-photo {
-        width: 25vw; /* Absolute fill for 4 items */
+        width: 32vw; /* Oversized */
         max-width: none;
         height: auto;
-        max-height: 75vh; /* HUGE vertical scale per latest request */
+        max-height: 80vh; /* HUGE vertical scale per latest request */
         filter: drop-shadow(0 10px 20px rgba(0,0,0,0.7));
     }
 
     .hero-icons {
-        position: relative;
-        margin-top: auto;
-        bottom: 0;
-        transform: none;
+        position: absolute;
+        bottom: -20px; /* touch the screen bottom */
         left: 0;
-        padding-bottom: 0; /* no space below to maximize height */
-        margin-bottom: 0;
+        width: 100vw;
+        padding-bottom: 0;
+        z-index: 10;
     }
 
     #hero {
