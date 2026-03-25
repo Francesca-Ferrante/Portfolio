@@ -498,11 +498,11 @@ footer {
 /* Mobile QNav */
 @media (max-width: 768px) {
     .icon-menu {
-        gap: 0; /* No gaps to maximize space */
+        gap: 0;
         flex-wrap: nowrap;
-        overflow-x: visible;
+        overflow: visible; /* fondamentale per far sporgere le immagini grandi */
         width: 100vw;
-        margin-left: -5%; /* offset typical page padding */
+        margin-left: -5%;
         justify-content: center;
         align-items: flex-end;
         padding: 0;
@@ -511,15 +511,18 @@ footer {
     .tube-photo-item {
         height: auto;
         padding: 0;
-        flex: 1; /* evenly fill 100vw */
-        margin: 0 -4vw; /* force overlap */
+        flex: 1; /* Dividiamo lo schermo in 4 parti uguali esatte */
+        overflow: visible;
+        z-index: 5;
     }
 
     .tube-photo {
-        width: 32vw; /* Oversized */
+        width: 100%;
         max-width: none;
         height: auto;
-        max-height: 80vh; /* HUGE vertical scale per latest request */
+        max-height: 80vh; 
+        transform: scale(1.4); /* Le ingrandiamo oltre il loro 25%, facendole sovrapporre */
+        transform-origin: bottom center;
         filter: drop-shadow(0 10px 20px rgba(0,0,0,0.7));
     }
 
@@ -645,7 +648,7 @@ footer {
         width: 165px;
         height: 165px;
         margin-right: 0;
-        filter: brightness(2) contrast(1.1);
+        filter: contrast(1.1);
     }
 
     /* Testo nascosto nel pannello mobile: solo icone */
