@@ -498,30 +498,31 @@ footer {
 /* Mobile QNav */
 @media (max-width: 768px) {
     .icon-menu {
+        display: grid; /* griglia a 4 colonne per non farli mai sparire */
+        grid-template-columns: repeat(4, 1fr);
         gap: 0;
-        flex-wrap: nowrap;
-        overflow: visible; /* fondamentale per far sporgere le immagini grandi */
         width: 100vw;
         margin-left: -5%;
-        justify-content: center;
-        align-items: flex-end;
         padding: 0;
+        align-items: flex-end;
+        overflow: visible;
     }
 
     .tube-photo-item {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
         height: auto;
         padding: 0;
-        flex: 1; /* Dividiamo lo schermo in 4 parti uguali esatte */
         overflow: visible;
         z-index: 5;
     }
 
     .tube-photo {
-        width: 100%;
+        width: 135%; /* Oltre il 100% per farli debordare e sovrapporsi */
         max-width: none;
         height: auto;
         max-height: 80vh; 
-        transform: scale(1.4); /* Le ingrandiamo oltre il loro 25%, facendole sovrapporre */
         transform-origin: bottom center;
         filter: drop-shadow(0 10px 20px rgba(0,0,0,0.7));
     }
