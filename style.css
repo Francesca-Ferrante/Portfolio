@@ -451,9 +451,9 @@ footer {
 }
 
 .tube-photo {
-    width: 75px; /* Full visual width */
+    width: 22vw; /* scales nicely based on mobile phone width */
+    max-width: 95px; /* bigger clamp */
     height: auto;
-    max-height: 160px;
     object-fit: contain;
     z-index: 3;
     filter: drop-shadow(0 8px 15px rgba(0,0,0,0.6));
@@ -492,8 +492,8 @@ footer {
 
 @keyframes splatShoot {
     0% { transform: scale(0.5) translateY(0); opacity: 1; border-radius: 50%; }
-    50% { transform: scale(2) translateY(-70px); opacity: 1; border-radius: 30% 70% 50% 50%; } 
-    100% { transform: scale(3.5) translateY(-150px); opacity: 0; border-radius: 40% 60% 70% 30%; }
+    50% { transform: scale(3) translateY(-100px); opacity: 1; border-radius: 30% 70% 50% 50%; } 
+    100% { transform: scale(4.5) translateY(-200px); opacity: 0; border-radius: 40% 60% 70% 30%; }
 }
 
 /* Mobile QNav */
