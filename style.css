@@ -499,24 +499,25 @@ footer {
 /* Mobile QNav */
 @media (max-width: 768px) {
     .icon-menu {
-        gap: 2rem; /* space between rows */
-        flex-wrap: wrap; /* allow wrapping to fit giant tubes in a 2x2 layout */
+        gap: 0.5rem;
+        flex-wrap: nowrap; /* tutti e 4 in una sola riga */
         overflow-x: visible;
         width: 100%;
-        justify-content: center;
+        justify-content: space-around;
         align-items: flex-end;
         padding: 0;
     }
 
     .tube-photo-item {
-        height: auto; /* let it grow */
+        height: auto;
+        padding: 2px;
     }
 
     .tube-photo {
-        width: 44vw; /* MASSIVE, almost half the screen per tube */
+        width: 22vw; /* 4 tubi affiancati, ognuno prende 1/4 dello schermo */
         max-width: none;
         height: auto;
-        max-height: 48vh;
+        max-height: 42vh;
     }
 
     .hero-icons {
