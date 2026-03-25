@@ -669,7 +669,7 @@
                                                         display: flex;
                                                         flex-direction: column;
                                                         justify-content: flex-start;
-                                                        padding-top: 60px;
+                                                        padding-top: 20px;
                                                         /* Riduciamo lo spazio morto in alto */
                                                         padding-bottom: 0;
                                                         height: auto;
@@ -740,7 +740,7 @@
 
                                                     /* Solleva titolo e sottotitolo Home per non coprire i tubetti */
                                                     .hero-content {
-                                                        padding-top: 2vh;
+                                                        padding-top: 0;
                                                         margin-bottom: -2rem;
                                                     }
 
