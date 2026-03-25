@@ -537,9 +537,9 @@ footer {
     }
 
     .tube-photo {
-        width: 100%; /* Occupa tutto il suo 25% disponibile, non un pixel in più */
-        max-width: none;
-        height: auto;
+        width: 100% !important; /* Occupa tutto il suo 25% disponibile, non un pixel in più */
+        max-width: none !important;
+        height: auto !important;
         max-height: 70vh; /* Limita l'altezza se lo schermo è bassissimo */
         margin-left: 0;
         transform-origin: bottom center;
