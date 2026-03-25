@@ -514,10 +514,10 @@ footer {
     }
 
     .tube-photo {
-        width: 22vw; /* 4 tubi affiancati, ognuno prende 1/4 dello schermo */
+        width: 23vw; /* leggermente più grande mantenendo fila singola */
         max-width: none;
         height: auto;
-        max-height: 42vh;
+        max-height: 52vh; /* più alto = tubetti visivamente più imponenti */
     }
 
     .hero-icons {
