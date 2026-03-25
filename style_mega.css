@@ -519,42 +519,42 @@ footer {
         transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), z-index 0s;
     }
 
-    /* EFFETTO TAVOLO SPARSO: Posizioni assolute, rotazioni e profondità (z-index) */
+    /* EFFETTO TAVOLO SPARSO SICURO (Dentro i margini dello schermo per evitare il taglio del telefono) */
     
-    /* 1. Su di me (giallo): inclinato a sinistra, in primo piano */
+    /* 1. Su di me (giallo): sinistra */
     .tube-photo-item:nth-child(1) {
-        bottom: -2vh; 
-        left: -8vw;
-        width: 48vw; 
-        transform: rotate(-18deg);
-        z-index: 14;
-    }
-    
-    /* 2. Olio (rosso): dietro al giallo, inclinato a destra */
-    .tube-photo-item:nth-child(2) {
-        bottom: 10vh;
-        left: 15vw;
-        width: 44vw;
-        transform: rotate(22deg);
+        bottom: 6vh; /* Più in alto per leggere bene l'etichetta */
+        left: 2vw;   /* Sicuro dentro il bordo */
+        width: 32vw; 
+        transform: rotate(-15deg);
         z-index: 12;
     }
-
-    /* 3. Acquerello (blu): dietro a IG, leggermente orizzontale */
-    .tube-photo-item:nth-child(3) {
-        bottom: 8vh;
-        right: 18vw;
-        width: 44vw;
-        transform: rotate(-12deg);
+    
+    /* 2. Olio (rosso): centro-sinistra */
+    .tube-photo-item:nth-child(2) {
+        bottom: 12vh;
+        left: 24vw;
+        width: 30vw;
+        transform: rotate(20deg);
         z-index: 11;
     }
 
-    /* 4. IG (bianco): in primissimo piano a destra, imponente */
+    /* 3. Acquerello (blu): centro-destra */
+    .tube-photo-item:nth-child(3) {
+        bottom: 8vh;
+        left: 46vw;
+        width: 31vw;
+        transform: rotate(-10deg);
+        z-index: 13;
+    }
+
+    /* 4. IG (bianco): destra in primo piano */
     .tube-photo-item:nth-child(4) {
-        bottom: -4vh;
-        right: -10vw;
-        width: 52vw; 
-        transform: rotate(15deg);
-        z-index: 15;
+        bottom: 3vh;
+        right: 2vw; /* Ancorato al bordo destro sicuro */
+        width: 36vw; 
+        transform: rotate(18deg);
+        z-index: 14;
     }
 
     .tube-photo {
