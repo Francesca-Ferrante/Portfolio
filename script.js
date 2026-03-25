@@ -122,5 +122,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // BFCache (Back-Forward Cache) handler per Safari/Mobile
+    // Quando clicchi "indietro" sul browser, la pagina potrebbe restare "congelata" nello stato .squished
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+            document.querySelectorAll('.tube-photo-item.squished').forEach(el => {
+                el.classList.remove('squished');
+            });
+        }
+    });
+
     console.log("Atelier Digitale ottimizzato anche per Mobile!");
 });

@@ -451,8 +451,8 @@ footer {
 }
 
 .tube-photo {
-    width: 22vw; /* scales nicely based on mobile phone width */
-    max-width: 95px; /* bigger clamp */
+    width: 24vw; /* massive mobile width */
+    max-width: 130px; /* huge maximum for desktop */
     height: auto;
     object-fit: contain;
     z-index: 3;
@@ -696,19 +696,7 @@ footer {
         margin-top: 0.5rem;
     }
 
-    /* Hero icons */
-    .hero-icons {
-        position: relative;
-        bottom: 0;
-        left: 0;
-        transform: none;
-        padding-bottom: 1.5rem;
-    }
-
-    .icon-menu {
-        gap: 1rem;
-        justify-content: center;
-    }
+    /* Hero icons and icon-menu overrides removed to prevent conflicts with main mobile layout */
 
     /* Removed overridden tubesizes, now globally perfectly narrow */
 
