@@ -437,10 +437,12 @@ footer {
     display: flex;
     flex-direction: column; /* Splat -> Cap -> Nozzle -> Body -> Tail */
     align-items: center;
+    justify-content: flex-end; /* anchors tail to the bottom */
     cursor: pointer;
     text-decoration: none;
-    transform-origin: bottom center; /* anchors at the tail */
-    padding: 10px;
+    transform-origin: bottom center;
+    padding: 10px 5px;
+    height: 200px; /* fixed height maintains space while body shrinks */
     transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
@@ -449,41 +451,41 @@ footer {
 }
 
 .tube-cap {
-    width: 45%;
-    height: 35px;
-    background: repeating-linear-gradient(90deg, #666, #666 4px, #444 4px, #444 8px);
+    width: 25px;
+    height: 18px;
+    background: repeating-linear-gradient(90deg, #666, #666 3px, #444 3px, #444 6px);
     border-radius: 4px 4px 2px 2px;
     z-index: 4;
     border: 1px solid #333;
-    box-shadow: inset 0 3px 5px rgba(255,255,255,0.2);
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.2);
     position: relative;
 }
 
 .tube-nozzle {
-    width: 35%;
-    height: 15px;
+    width: 22px;
+    height: 8px;
     background: linear-gradient(90deg, #aaa, #ddd, #aaa);
-    clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+    clip-path: polygon(10% 0%, 90% 0%, 100% 100%, 0% 100%);
     z-index: 2;
 }
 
 .tube-body {
-    width: clamp(100px, 12vw, 150px);
-    height: clamp(140px, 18vw, 210px);
+    width: 65px;
+    height: 140px;
     background: linear-gradient(to bottom, 
         var(--tube-color) 0%, 
-        var(--tube-color) 35%, 
-        #fdfdfd 35%, 
+        var(--tube-color) 25%, 
+        #fdfdfd 25%, 
         #fdfdfd 75%, 
         #c4c4c4 75%, 
         #999999 100%);
-    border-radius: 8px 8px 2px 2px;
+    border-radius: 4px 4px 2px 2px;
     z-index: 3;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
-    box-shadow: inset -5px 0 15px rgba(0,0,0,0.3), inset 5px 0 15px rgba(255,255,255,0.3), 0 10px 20px rgba(0,0,0,0.6);
+    padding: 5px;
+    box-shadow: inset -3px 0 10px rgba(0,0,0,0.3), inset 3px 0 10px rgba(255,255,255,0.3), 0 5px 15px rgba(0,0,0,0.5);
     position: relative;
 }
 
@@ -495,17 +497,19 @@ footer {
 }
 
 .tube-body img {
-    filter: brightness(0) !important; /* Makes white icon completely black */
+    width: 80% !important; /* ensure icon scales nicely inside narrow body */
+    height: auto !important;
+    filter: brightness(0) !important;
     opacity: 0.9;
 }
 
 .tube-tail {
-    width: clamp(100px, 12vw, 150px);
-    height: 18px;
+    width: 65px;
+    height: 12px;
     background: #888;
-    background-image: repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(0,0,0,0.2) 4px, rgba(0,0,0,0.2) 8px);
-    border-radius: 0 0 3px 3px;
-    box-shadow: inset 0 -3px 5px rgba(0,0,0,0.4);
+    background-image: repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,0,0,0.2) 3px, rgba(0,0,0,0.2) 6px);
+    border-radius: 0 0 2px 2px;
+    box-shadow: inset 0 -2px 4px rgba(0,0,0,0.4);
     z-index: 2;
 }
 
@@ -519,22 +523,22 @@ footer {
 }
 
 @keyframes tubeSquish {
-    0% { transform: scale(1, 1); }
-    30% { transform: scale(1.15, 0.7); } /* squish down */
-    100% { transform: scale(1.1, 0.4); opacity: 0; }
+    0% { height: 140px; transform: scaleX(1); }
+    30% { height: 130px; transform: scaleX(1.1); } /* slight bulge */
+    100% { height: 40px; transform: scaleX(1.1); opacity: 0; }
 }
 
 @keyframes capPop {
     0% { transform: translateY(0); }
-    100% { transform: translateY(-20px) scale(1.2) rotate(15deg); opacity: 0; } /* pop UP */
+    100% { transform: translateY(-40px) scale(1.3) rotate(25deg); opacity: 0; }
 }
 
 /* PAINT SPLAT (shooting up) */
 .paint-splat {
     position: absolute;
-    top: 5px; /* starting near cap */
-    width: 25px;
-    height: 25px;
+    top: 20px; /* near cap */
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     opacity: 0;
     pointer-events: none;
@@ -548,20 +552,20 @@ footer {
 }
 
 @keyframes splatShoot {
-    0% { transform: scale(0.5) translateY(0); opacity: 1; border-radius: 50% 50% 50% 50%; }
-    50% { transform: scale(2.5) translateY(-80px); opacity: 1; border-radius: 30% 70% 50% 50%; } /* UP */
-    100% { transform: scale(4) translateY(-180px); opacity: 0; border-radius: 40% 60% 70% 30%; }
+    0% { transform: scale(0.5) translateY(0); opacity: 1; border-radius: 50%; }
+    50% { transform: scale(2) translateY(-70px); opacity: 1; border-radius: 30% 70% 50% 50%; } 
+    100% { transform: scale(3.5) translateY(-150px); opacity: 0; border-radius: 40% 60% 70% 30%; }
 }
 
 /* Mobile QNav */
 @media (max-width: 768px) {
     .icon-menu {
-        gap: 2rem;
-    }
-
-    .icon-item img {
-        width: 110px;
-        height: 110px;
+        gap: 0.5rem; /* tight gap to fit 4 side-by-side */
+        flex-wrap: nowrap; /* keep them in a single row */
+        overflow-x: visible;
+        width: 100%;
+        justify-content: space-around;
+        padding: 0;
     }
 
     .hero-icons {
@@ -766,12 +770,7 @@ footer {
         justify-content: center;
     }
 
-    .tube-body, .tube-tail {
-        width: 140px;
-    }
-    .tube-body {
-        height: 180px;
-    }
+    /* Removed overridden tubesizes, now globally perfectly narrow */
 
     /* About: colonna singola */
     .about-row {
@@ -830,12 +829,7 @@ footer {
 
 /* Extra small: smartphone stretto */
 @media (max-width: 400px) {
-    .tube-body, .tube-tail {
-        width: 100px;
-    }
-    .tube-body {
-        height: 140px;
-    }
+    /* Removed overridden tubesizes */
 
     .art-grid {
         grid-template-columns: repeat(2, 1fr);
