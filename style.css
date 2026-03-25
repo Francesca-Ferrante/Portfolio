@@ -515,10 +515,10 @@ footer {
     }
 
     .tube-photo {
-        width: 100%; /* fill the 1/4th flex container */
+        width: 25vw; /* Absolute fill for 4 items */
         max-width: none;
         height: auto;
-        max-height: 72vh; /* Even taller scale! */
+        max-height: 75vh; /* HUGE vertical scale per latest request */
         filter: drop-shadow(0 10px 20px rgba(0,0,0,0.7));
     }
 
@@ -535,9 +535,10 @@ footer {
     #hero {
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        justify-content: flex-end; /* push everything to bottom */
         padding-bottom: 0; 
-        min-height: 100svh; /* use safe viewport height for phone */
+        padding-top: 60px; /* pull title up */
+        min-height: 100svh;
     }
 }
 
