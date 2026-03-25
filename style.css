@@ -427,7 +427,6 @@ footer {
     width: 65% !important;
     height: 65% !important;
     object-fit: contain;
-    filter: brightness(2) contrast(1.1);
     transition: 0.4s;
 }
 
