@@ -175,15 +175,17 @@
                                                     height: 80px;
                                                 }
 
-                                                /* Previeni sovrapposizione dell'header gigante - Spazio Massiccio */
-                                                body:not(.home-page) main section:first-of-type {
-                                                    padding-top: 480px;
-                                                }
-
                                                 /* Header sempre solido sulle pagine secondarie per evitare trasparenze fastidiose */
                                                 body:not(.home-page) header {
-                                                    background: var(--bg-dark);
-                                                    border-bottom: 1px solid rgba(184, 134, 11, 0.1);
+                                                    background: rgba(7, 9, 12, 0.95);
+                                                    backdrop-filter: blur(20px);
+                                                    padding: 1rem 5%;
+                                                    border-bottom: 1px solid rgba(184, 134, 11, 0.2);
+                                                }
+
+                                                /* Riduzione padding eccessivo - Miglioramento layout PC */
+                                                body:not(.home-page) main section:first-of-type {
+                                                    padding-top: 140px;
                                                 }
 
                                                 /* Labels eleganti sulle pagine secondarie */
@@ -328,11 +330,11 @@
                                                     opacity: 0.3;
                                                 }
 
-                                                /* Art Grid */
+                                                /* Art Grid Optimized for Desktop */
                                                 .art-grid {
                                                     display: grid;
-                                                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                                                    gap: 3rem;
+                                                    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                                                    gap: 4rem;
                                                     margin-top: 4rem;
                                                 }
 
